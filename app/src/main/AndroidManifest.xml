@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="app.racdeveloper.com.bencolconnect">
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:name=".newsFeed.NewsFeedController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        tools:replace="android:icon, android:label, android:theme, android:name"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".appStartup.SplashActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SignUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginActivity" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ProfileActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".SettingsActivity" android:screenOrientation="portrait"
+            android:parentActivityName=".ProfileActivity"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ProfileActivity" />
+        </activity>
+        <activity android:name=".commentOnNewsFeed.CommentsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".questionPapers.QuestionChooserActivity"/>
+        <activity android:name=".questionPapers.QuestionPaperActivity"/>
+        <activity android:name=".resumesList.ResumeActivity"/>
+        <activity android:name=".pushNotification.NotificationList"/>
+        <activity android:name=".AboutUsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".appStartup.IntroActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".fetchProfiles.MyProfile" android:screenOrientation="portrait"/>
+        <activity android:name=".fetchProfiles.UpdateProfileDetails" android:screenOrientation="portrait"/>
+        <activity android:name=".fetchProfiles.UpdateProfilePic" android:screenOrientation="portrait"/>
+        <activity android:name=".pushNotification.NotificationViewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".pushNotification.NotificationWebview" android:screenOrientation="portrait"/>
+        <activity android:name=".PostMsgActivity" android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ProfileActivity"/>
+        </activity>
+
+        <!-- Firebase Notifications -->
+        <service android:name=".pushNotification.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".pushNotification.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+
+        <receiver android:name=".pushNotification.StartServiceOnBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+    </application>
+
+</manifest>

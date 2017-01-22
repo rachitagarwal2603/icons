@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="20dp"
+    android:orientation="vertical">
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:hint="Your Name"
+        android:id="@+id/etName_Details"
+        android:inputType="textPersonName"
+        android:maxLines="1"/>
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:hint="Contact(Required)"
+        android:id="@+id/etContact_Details"
+        android:inputType="number"
+        android:maxLines="1"/>
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:id="@+id/etCouncils_Details"
+        android:hint="Councils" />
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:id="@+id/etSkills_Details"
+        android:hint="Skills(Required)" />
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:id="@+id/etHobbies_Details"
+        android:hint="Hobbies" />
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:hint="Blood Group(Required)"
+        android:id="@+id/etBloodGroup_Details"
+        android:maxLines="1"/>
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:id="@+id/etAddress_Details"
+        android:hint="Address(Required)" />
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:id="@+id/etFacebookLink_Details"
+        android:hint="Your Facebook Link(Required)"/>
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:id="@+id/etTwitterLink_Details"
+        android:hint="Twitter Link" />
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:id="@+id/etLinkedInLink_Details"
+        android:hint="LinkedIn Link" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/tvSubmit_Details"
+        android:textSize="15sp"
+        android:text="Submit"/>
+</LinearLayout>
+</ScrollView>
