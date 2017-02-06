@@ -25,7 +25,14 @@
         android:textStyle="bold"
         android:gravity="center"
         android:id="@+id/tvDescription"/>
-
+    <ProgressBar
+        android:id="@+id/resume_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="112dp"
+        />
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

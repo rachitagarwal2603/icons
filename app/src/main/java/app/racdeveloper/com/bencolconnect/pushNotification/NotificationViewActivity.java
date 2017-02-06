@@ -18,7 +18,7 @@ public class NotificationViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_view);
 
-        // Retrive the data from MainActivity.java
+        // Retrieve the data from MyFirebaseMessagingService.java class
         Intent i = getIntent();
 
         title = i.getStringExtra("title");

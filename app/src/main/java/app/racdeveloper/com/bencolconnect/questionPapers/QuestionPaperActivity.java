@@ -1,10 +1,14 @@
 package app.racdeveloper.com.bencolconnect.questionPapers;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
@@ -44,6 +48,7 @@ public class QuestionPaperActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
+    private View mProgressView;
     private QuestionPaperViewAdapter adapter;
     private List<QuestionPaperData> data_list;
     RequestQueue requestQueue;
@@ -57,7 +62,9 @@ public class QuestionPaperActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        mProgressView = findViewById(R.id.question_progress);
         data_list = new ArrayList<>();
+        showProgress(true);
         load_question_papers(0);
 
         gridLayoutManager = new GridLayoutManager(this,2);
@@ -106,11 +113,6 @@ public class QuestionPaperActivity extends AppCompatActivity {
         AsyncTask<Integer,Void,Void> task =  new AsyncTask<Integer, Void, Void>() {
 
             @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
             protected Void doInBackground(Integer... integers) {
 
                 requestQueue = Volley.newRequestQueue(QuestionPaperActivity.this);
@@ -123,6 +125,7 @@ public class QuestionPaperActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             Log.d("pp",response.toString());
+                            showProgress(false);
                             JSONArray papersArray = response.getJSONArray("papers");
                             for (int i = 0; i < papersArray.length(); i++) {
                                 JSONObject paperObject = papersArray.getJSONObject(i);
@@ -157,5 +160,29 @@ public class QuestionPaperActivity extends AppCompatActivity {
         };
         task.execute(id);
     }
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
 }

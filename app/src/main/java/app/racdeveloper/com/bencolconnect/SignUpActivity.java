@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -51,6 +52,8 @@ import java.util.Map;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText rollno, name, email, password, confirmpass;
+    private Button signup;
+    private View mProgressView;
 
     //variables used in spinner
     private boolean isSpinnerInitial = true;
@@ -61,27 +64,22 @@ public class SignUpActivity extends AppCompatActivity {
     //spinner ends
 
     RelativeLayout imageUploadLayout;
+    LinearLayout formLayout;
     boolean isImageSet= false;
     ImageView imageIdUpload;
-    private static String resultKey = null;
     Bitmap bitmap=null;
-
-    private Button signup;
-    private View mProgressView;
-
     private String error, result;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+        formLayout = (LinearLayout) findViewById(R.id.email_login_form);
 
         rollno = (EditText) findViewById(R.id.etUserId);
         rollno.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                View footer= findViewById(R.id.footer);
-//                footer.setVisibility(View.GONE);
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     name.requestFocus();
                     return true;
@@ -368,6 +366,7 @@ public class SignUpActivity extends AppCompatActivity {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            formLayout.setVisibility(View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
@@ -379,6 +378,7 @@ public class SignUpActivity extends AppCompatActivity {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            formLayout.setVisibility(View.GONE);
         }
     }
 

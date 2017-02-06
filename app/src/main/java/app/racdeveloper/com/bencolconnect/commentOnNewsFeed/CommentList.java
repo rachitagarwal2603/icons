@@ -113,7 +113,6 @@ public class CommentList extends Fragment {
 
                 String token = QueryPreferences.getToken(getContext());
                 Map<String, String> param = new HashMap<>();
-//                String feedID = "2";
                 param.put("feedID",feedID);
                 param.put("token",token);
                 JsonObjectRequest object = new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(param), new Response.Listener<JSONObject>() {
@@ -125,13 +124,12 @@ public class CommentList extends Fragment {
                             JSONArray commentArray = response.getJSONArray("comments");
                             for (int i = 0; i < commentArray.length(); i++) {
                                 JSONObject commentObject = commentArray.getJSONObject(i);
-                                CommentData commentData = new CommentData();
 
+                                CommentData commentData = new CommentData();
                                 commentData.setCommentID(commentObject.getInt("id"));
                                 commentData.setCommentUserImageUrl(commentObject.getString("authorImageLink"));
                                 commentData.setCommentUserName(commentObject.getString("authorName"));
                                 commentData.setCommentUserRollNo(commentObject.getString("authorRollno"));
-//                                Toast.makeText(context, ""+ commentObject.getString("authorRollno"), Toast.LENGTH_SHORT).show();
                                 commentData.setCommentText(commentObject.getString("content"));
                                 //timestamp;
 

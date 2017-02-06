@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BenConnect</string>
+    <string name="app_name">ICoNS</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">College ID</string>

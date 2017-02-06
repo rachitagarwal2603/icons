@@ -120,6 +120,15 @@ public class MyProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+
+                // NOT TESTED!!!!!!!!
+//                new DialogInterface.OnClickListener(){
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        dialogInterface.dismiss();
+//                    }
+//                };
+
                 Intent i= new Intent(MyProfile.this, UpdateProfilePic.class);
                 startActivity(i);
             }

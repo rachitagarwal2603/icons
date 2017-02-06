@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_item_search"
         android:title="Search"
+        android:icon="@drawable/ic_action_search"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
+    <item
+        android:title="Share a ScreenShot"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        android:id="@+id/shareMenu"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_action_share"/>
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_launcher_setting"
@@ -17,13 +24,8 @@
         android:orderInCategory="100"
         app:showAsAction="never"/>
     <item
-    android:id="@+id/action_share"
-    android:orderInCategory="100"
-    android:title="Share"
-    app:showAsAction="never"> </item>
-    <item
         android:title="Logout"
         android:id="@+id/action_logout"
         android:orderInCategory="100"
-        app:showAsAction="never"> </item>
+        app:showAsAction="never"/>
 </menu>

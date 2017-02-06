@@ -124,7 +124,7 @@ public class UpdateProfileDetails extends AppCompatActivity{
         param.put("address", profilePicString);
         param.put("facebookLink", profilePicString);
         param.put("twitterLink", profilePicString);
-        param.put("LinkedinLink", profilePicString);
+        param.put("linkedinLink", profilePicString);
 
 
         JsonObjectRequest jor= new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(param), new Response.Listener<JSONObject>() {

@@ -40,8 +40,9 @@ public class PostMsgActivity extends AppCompatActivity {
     private static final String URL= Constants.URL+"newsFeeds/post";
     boolean isImageSet= false;
     boolean isSendClicked= false;
+    Intent shareIntent;
 
-    EditText dataForPost;
+    EditText dataForPost, dataForUrl;
     ImageView imageForPost;
     CropImageView cropImageView;
     Button uploadImage, send, cropButton;
@@ -54,6 +55,7 @@ public class PostMsgActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_msg);
 
         dataForPost= (EditText) findViewById(R.id.etPost);
+        dataForUrl= (EditText) findViewById(R.id.etUrl);
         imageForPost= (ImageView) findViewById(R.id.ivPost);
 
         uploadImage= (Button) findViewById(R.id.bUpload);
@@ -70,6 +72,28 @@ public class PostMsgActivity extends AppCompatActivity {
         cropImageView = (CropImageView) findViewById(R.id.CropImageView);
         cropButton = (Button) findViewById(R.id.Button_crop);
 
+        shareIntent = getIntent();
+        if(shareIntent!=null) {
+            String text = shareIntent.getStringExtra("Text");
+            if(text!=null){
+                dataForPost.setText(text);
+            }
+            Uri mUri= shareIntent.getParcelableExtra("ImageUri");
+            if(mUri!=null){
+                isImageSet=true;
+                imageForPost.setVisibility(View.GONE);
+                cropImageView.setVisibility(View.VISIBLE);
+                cropButton.setVisibility(View.VISIBLE);
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mUri);
+                    bitmap = getResizedBitmap(bitmap, 720);
+                    cropImageView.setImageBitmap(bitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         // Initialize the Crop button.
         cropButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +119,7 @@ public class PostMsgActivity extends AppCompatActivity {
                         if (!data.equals(""))
                             postMessage(data, imageString);
                         else
-                            postMessage("No text", imageString);
+                            postMessage(" ", imageString);
                     } else if (!data.equals("")) {
                         postMessage(data, null);
                     }
@@ -137,6 +161,8 @@ public class PostMsgActivity extends AppCompatActivity {
         Map<String, String> param= new HashMap<>();
         param.put("token", QueryPreferences.getToken(PostMsgActivity.this));
         param.put("content", mText);
+//        ADD URL FOR DATA ALSO IN PROFILE ACTIVITY
+//        param.put("linkUrl", mUrl);
         if(isImageSet)
             param.put("image", mImage);
 
@@ -147,9 +173,12 @@ public class PostMsgActivity extends AppCompatActivity {
                 if(jsonObject!=null) {
                     try {
                         resultKey = jsonObject.getString("result");
-
                         if(resultKey.equals("success")){
                             Toast.makeText(PostMsgActivity.this, "Msg is successfully posted!!!n\n Refresh your page", Toast.LENGTH_SHORT).show();
+                            if(shareIntent!=null){
+                                Intent i = new Intent(PostMsgActivity.this, ProfileActivity.class);
+                                startActivity(i);
+                            }
                             finish();
                         }
                         else {
@@ -182,7 +211,6 @@ public class PostMsgActivity extends AppCompatActivity {
             height = maxSize;
             width = (int) (height * bitmapRatio);
         }
-
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 

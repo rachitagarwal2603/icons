@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--<item name="android:windowBackground">@drawable/bg_qp</item>-->
+
     <CheckBoxPreference
         android:title="@string/pref_notifications_label"
         android:key ="@string/pref_notifications_key"

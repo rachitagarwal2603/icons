@@ -6,9 +6,13 @@ import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -47,12 +51,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import app.racdeveloper.com.bencolconnect.aboutUs.DeveloperActivity;
 import app.racdeveloper.com.bencolconnect.appStartup.SplashActivity;
 import app.racdeveloper.com.bencolconnect.fetchProfiles.MyProfile;
 import app.racdeveloper.com.bencolconnect.fetchProfiles.UpdateProfilePic;
@@ -372,11 +381,53 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             Intent i = new Intent(ProfileActivity.this, SettingsActivity.class);
             startActivity(i);
         } else if (id == R.id.action_bookmarks)
-            return true;
-        else if (id == R.id.action_share)
-            return true;
-        else if (id == R.id.action_logout)
-            return true;
+            return true;else if (id==R.id.shareMenu) {
+            View screen = getWindow().getDecorView().getRootView();
+            screen.setDrawingCacheEnabled(true);
+            Bitmap screenShot = screen.getDrawingCache();
+            String filePath = Environment.getExternalStorageDirectory()
+                    + File.separator + "Pictures/Screenshot.png";
+            File imagePath = new File(filePath);
+            FileOutputStream fos;
+            try {
+                fos = new FileOutputStream(imagePath);
+                screenShot.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                fos.flush();
+                fos.close();
+            } catch (FileNotFoundException e) {
+                Log.e("GREC", e.getMessage(), e);
+            } catch (IOException e) {
+                Log.e("GREC", e.getMessage(), e);
+            }
+            Uri myUri = Uri.parse("file://" + filePath);
+            Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+            shareIntent.setType("image/*");
+            // shareIntent.addCategory(Intent.CATEGORY_HOME);
+            shareIntent.putExtra(Intent.EXTRA_STREAM,myUri);
+            PackageManager packageManager=getPackageManager();
+            if(packageManager.resolveActivity(shareIntent, PackageManager.MATCH_DEFAULT_ONLY)==null) {
+                final AlertDialog alertDialog=new AlertDialog.Builder(ProfileActivity.this).create();
+                alertDialog.setTitle("Warning");
+                alertDialog.setMessage("Sorry,you don't have any apps in your device which will be able to handle such operation");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+            else {
+                startActivity(Intent.createChooser(shareIntent, "Share screenshot using"));
+            }
+        }
+        else if (id == R.id.action_logout){
+            QueryPreferences.setToken(ProfileActivity.this, null);
+            Intent i = new Intent(ProfileActivity.this, SplashActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -445,12 +496,11 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             startActivity(i);
         } else if (id == R.id.nav_logout) {
             QueryPreferences.setToken(ProfileActivity.this, null);
-            //finishAffinity();
             Intent i = new Intent(ProfileActivity.this, SplashActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         } else if (id == R.id.nav_aboutUs) {
-            Intent i = new Intent(ProfileActivity.this, AboutUsActivity.class);
+            Intent i = new Intent(ProfileActivity.this, DeveloperActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_profile) {
             Intent i = new Intent(ProfileActivity.this, MyProfile.class);

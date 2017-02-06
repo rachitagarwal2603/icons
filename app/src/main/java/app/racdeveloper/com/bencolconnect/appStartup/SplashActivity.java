@@ -3,6 +3,7 @@ package app.racdeveloper.com.bencolconnect.appStartup;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import app.racdeveloper.com.bencolconnect.LoginActivity;
+import app.racdeveloper.com.bencolconnect.PostMsgActivity;
 import app.racdeveloper.com.bencolconnect.ProfileActivity;
 import app.racdeveloper.com.bencolconnect.QueryPreferences;
 import app.racdeveloper.com.bencolconnect.R;
@@ -44,8 +46,24 @@ public class SplashActivity extends AppCompatActivity {
                         Intent i = new Intent(SplashActivity.this, LoginActivity.class);
                         startActivity(i);
                     } else {
-                        Intent i = new Intent(SplashActivity.this, ProfileActivity.class);
-                        startActivity(i);
+                        Intent receivedIntent=getIntent();
+                        String receivedAction=receivedIntent.getAction();
+                        if(receivedAction.equals(Intent.ACTION_SEND)) {
+                            Intent postIntent=new Intent(SplashActivity.this,PostMsgActivity.class);
+                            String receivedText=receivedIntent.getStringExtra(Intent.EXTRA_TEXT);
+                            Uri receivedUri=receivedIntent.getParcelableExtra(Intent.EXTRA_STREAM);
+                            if (receivedText != null) {
+                                postIntent.putExtra("Text",receivedText);
+                            }
+                            if (receivedUri != null) {
+                                postIntent.putExtra("ImageUri",receivedUri);
+                            }
+                            startActivity(postIntent);
+                        }
+                        else {
+                            Intent i = new Intent(SplashActivity.this, ProfileActivity.class);
+                            startActivity(i);
+                        }
                     }
 //                }
 //                else{

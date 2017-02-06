@@ -22,39 +22,12 @@
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="206dp"
-        android:layout_height="206dp"
-        android:layout_marginStart="90dp"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
         android:layout_marginTop="258dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="98dp"
         android:visibility="gone"
         />
-    <!--&lt;!&ndash;  Header  Starts-->
-    <!--<LinearLayout android:id="@+id/header"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/signup_header_gradient"-->
-        <!--android:paddingTop="5dip"-->
-        <!--android:paddingBottom="5dip">-->
-        <!--&lt;!&ndash; Logo Start-->
-        <!--<ImageView android:src="@drawable/logo"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="90dp"-->
-            <!--android:layout_marginLeft="10dip"/>-->
-         <!--Logo Ends &ndash;&gt;-->
-    <!--</LinearLayout>-->
-    <!--Header Ends &ndash;&gt;-->
-
-    <!--&lt;!&ndash; Footer Start &ndash;&gt;-->
-    <!--<LinearLayout android:id="@+id/footer"-->
-        <!--android:layout_width="340dip"-->
-        <!--android:layout_height="97dip"-->
-        <!--android:background="@drawable/signup_footer_gradient"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:orientation="vertical">-->
-
-    <!--</LinearLayout>-->
-    <!--&lt;!&ndash; Footer Ends &ndash;&gt;-->
 
     <ScrollView
         android:id="@+id/login_form"

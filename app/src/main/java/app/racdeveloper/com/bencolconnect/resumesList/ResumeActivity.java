@@ -1,10 +1,14 @@
 package app.racdeveloper.com.bencolconnect.resumesList;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
@@ -38,14 +42,12 @@ import app.racdeveloper.com.bencolconnect.R;
 public class ResumeActivity extends AppCompatActivity {
 
     DownloadManager manager;
+    private View mProgressView;
     private RecyclerView recyclerView;
-    private GridLayoutManager gridLayoutManager;
     private ResumeViewAdapter adapter;
     private List<ResumeData> data_list;
     RequestQueue requestQueue;
     String URL = Constants.URL + "resumes/get";
-    //String URL = "http://192.168.3.103/laravel-projects/webapi/public_html/api/resumes/get";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +57,16 @@ public class ResumeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mProgressView = findViewById(R.id.resume_progress);
         data_list = new ArrayList<>();
+        showProgress(true);
         load_resume(0);
 
-        gridLayoutManager = new GridLayoutManager(this, 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         adapter = new ResumeViewAdapter(this, data_list);
         recyclerView.setAdapter(adapter);
-
 
     }
 
@@ -103,13 +106,6 @@ public class ResumeActivity extends AppCompatActivity {
     private void load_resume(int id) {
         AsyncTask<Integer, Void, Void> task = new AsyncTask<Integer, Void, Void>() {
 
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-
             @Override
             protected Void doInBackground(Integer... integers) {
 
@@ -117,11 +113,11 @@ public class ResumeActivity extends AppCompatActivity {
                 Map<String, String> param = new HashMap<>();
                 //param.put("token", PreferenceManager.getDefaultSharedPreferences(ResumeActivity.this).getString("token", null));
                 JsonObjectRequest object = new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(param), new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             Log.d("pppp","inOn response");
+                            showProgress(false);
                             JSONArray resumeArray = response.getJSONArray("resume");
                             for (int i = 0; i < resumeArray.length(); i++) {
                                 JSONObject resumeObject = resumeArray.getJSONObject(i);
@@ -141,8 +137,7 @@ public class ResumeActivity extends AppCompatActivity {
                             public void onErrorResponse(VolleyError error) {
                                 Log.e("Volley", "Error");
                             }
-                        }
-                );
+                });
                 requestQueue.add(object);
                 return null;
             }
@@ -153,5 +148,30 @@ public class ResumeActivity extends AppCompatActivity {
                 }
         };
         task.execute(id);
+    }
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
     }
 }
