@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:id="@+id/etUrl"
-            android:hint="Add a Url..."/>
+            android:hint="Add a Url (Max. 255 Characters)"/>
 
         <ImageView
             android:layout_width="wrap_content"

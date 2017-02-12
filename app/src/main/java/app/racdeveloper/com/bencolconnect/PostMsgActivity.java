@@ -48,6 +48,7 @@ public class PostMsgActivity extends AppCompatActivity {
     Button uploadImage, send, cropButton;
     Bitmap bitmap;
     private static String resultKey = null;
+    private String mDataUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,18 +112,26 @@ public class PostMsgActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isSendClicked) {
-                    isSendClicked = true;
-                    String data = dataForPost.getText().toString();
-                    if (isImageSet) {
-                        String imageString = getStringImage(bitmap);
-                        if (!data.equals(""))
-                            postMessage(data, imageString);
-                        else
-                            postMessage(" ", imageString);
-                    } else if (!data.equals("")) {
-                        postMessage(data, null);
+                mDataUrl = dataForUrl.getText().toString().trim();
+                if (mDataUrl.length()<256) {
+                    if (!isSendClicked) {
+                        isSendClicked = true;
+                        String data = dataForPost.getText().toString();
+                        if (isImageSet) {
+                            String imageString = getStringImage(bitmap);
+                            if (!data.equals(""))
+                                postMessage(data, imageString);
+                            else
+                                postMessage(" ", imageString);
+                        } else if (!data.equals("")) {
+                            postMessage(data, null);
+                        } else{
+                            postMessage(" ", null);
+                        }
                     }
+                }
+                else{
+                    Toast.makeText(PostMsgActivity.this, "Url should be less than 255 characters!", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -161,8 +170,8 @@ public class PostMsgActivity extends AppCompatActivity {
         Map<String, String> param= new HashMap<>();
         param.put("token", QueryPreferences.getToken(PostMsgActivity.this));
         param.put("content", mText);
-//        ADD URL FOR DATA ALSO IN PROFILE ACTIVITY
-//        param.put("linkUrl", mUrl);
+        if(!mDataUrl.equals(""))
+            param.put("url", mDataUrl);
         if(isImageSet)
             param.put("image", mImage);
 

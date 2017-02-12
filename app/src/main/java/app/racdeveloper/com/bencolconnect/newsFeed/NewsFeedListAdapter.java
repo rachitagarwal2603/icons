@@ -12,7 +12,6 @@ import android.graphics.Rect;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +29,7 @@ import java.util.List;
 import app.racdeveloper.com.bencolconnect.R;
 import app.racdeveloper.com.bencolconnect.commentOnNewsFeed.CommentsActivity;
 import app.racdeveloper.com.bencolconnect.fetchProfiles.MyProfile;
+import app.racdeveloper.com.bencolconnect.pushNotification.NotificationWebview;
 
 /**
  * Created by Rachit on 10/7/2016.
@@ -82,7 +82,7 @@ public class NewsFeedListAdapter extends BaseAdapter {
 
         newsFeedLayout = activity.findViewById(R.id.list);
 
-        TextView name, timestamp, statusMsg, url, commentCount;
+        final TextView name, timestamp, statusMsg, url, commentCount;
         name = (TextView) view.findViewById(R.id.author);
         timestamp = (TextView) view.findViewById(R.id.timestamp);
         statusMsg = (TextView) view.findViewById(R.id.txtStatusMsg);
@@ -131,14 +131,26 @@ public class NewsFeedListAdapter extends BaseAdapter {
             statusMsg.setVisibility(View.GONE);
         }
 
+
+
         if(item.getUrl()!=null){
+            if(!item.getUrl().regionMatches(0, "https://", 0, 8)) ;              // to add at beginning "https://" to url
+                item.setUrl("https://"+item.getUrl());
+//            url.setTextColor(Color.BLUE);
             url.setText(Html.fromHtml("<a href=\""+ item.getUrl() +"\">"+ item.getUrl() +"</a>"));
-            url.setMovementMethod(LinkMovementMethod.getInstance());
+//            url.setMovementMethod(LinkMovementMethod.getInstance());
+            url.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.startActivity(new Intent(activity, NotificationWebview.class).putExtra("uri", item.getUrl()));
+                }
+            });
             url.setVisibility(View.VISIBLE);
         }
         else{
             url.setVisibility(View.GONE);
         }
+
 
         if (!item.getProfilePic().equals(""))
             profilepic.setImageUrl(item.getProfilePic(), imageLoader);

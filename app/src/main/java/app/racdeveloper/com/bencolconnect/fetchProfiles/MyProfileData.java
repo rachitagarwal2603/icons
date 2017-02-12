@@ -1,12 +1,14 @@
 package app.racdeveloper.com.bencolconnect.fetchProfiles;
 
+import java.io.Serializable;
+
 /**
  * Created by Rachit on 11/22/2016.
  */
-public class MyProfileData {
+public class MyProfileData implements Serializable {
     private String MyProfileImageUrl;
     private String MyProfileName;
-    private String MyProfileBio;
+    private String MyProfileStatus;
     private String MyProfileBranch;
     private String MyProfileBatch;
     private String MyProfileId;
@@ -19,21 +21,20 @@ public class MyProfileData {
     private String MyProfileEmail;
     private String MyProfileWebsite;
     private String MyProfileFb;
-    private String MyProfileTwitter;
+    private String MyProfileGithub;
     private String MyProfileLinkedin;
 
     public MyProfileData(){
 
     }
-
-    public MyProfileData(String profileImageUrl, String profileName, String profileBio, String profileBranch, String profileBatch,
+    public MyProfileData(String profileImageUrl, String profileName, String profileStatus, String profileBranch, String profileBatch,
                          String profileId, String profileCouncils, String profileSkills, String profileHobbies,
                          String profileBlood, String profileAddress, String profileEmail, String profileWebsite,
-                         String profileFb, String profileTwitter, String profileLinkedin, String profileContact) {
+                         String profileFb, String profileGithub, String profileLinkedin, String profileContact) {
 
         MyProfileImageUrl = profileImageUrl;
         MyProfileName = profileName;
-        MyProfileBio = profileBio;
+        MyProfileStatus = profileStatus;
         MyProfileBranch = profileBranch;
         MyProfileBatch = profileBatch;
         MyProfileId = profileId;
@@ -44,8 +45,7 @@ public class MyProfileData {
         MyProfileAddress = profileAddress;
         MyProfileEmail = profileEmail;
         MyProfileWebsite = profileWebsite;
-        MyProfileFb = profileFb;
-        MyProfileTwitter = profileTwitter;
+        MyProfileGithub = profileGithub;
         MyProfileLinkedin = profileLinkedin;
         MyProfileContact = profileContact;
     }
@@ -74,12 +74,12 @@ public class MyProfileData {
         MyProfileName = profileName;
     }
 
-    public String getProfileBio() {
-        return MyProfileBio;
+    public String getProfileStatus() {
+        return MyProfileStatus;
     }
 
-    public void setProfileBio(String profileBio) {
-        MyProfileBio = profileBio;
+    public void setProfileStatus(String profileStatus) {
+        MyProfileStatus = profileStatus;
     }
 
     public String getProfileBranch() {
@@ -170,12 +170,12 @@ public class MyProfileData {
         MyProfileFb = profileFb;
     }
 
-    public String getProfileTwitter() {
-        return MyProfileTwitter;
+    public String getProfileGithub() {
+        return MyProfileGithub;
     }
 
-    public void setProfileTwitter(String profileTwitter) {
-        MyProfileTwitter = profileTwitter;
+    public void setProfileGithub(String profileGithub) {
+        MyProfileGithub = profileGithub;
     }
 
     public String getProfileLinkedin() {
@@ -185,4 +185,5 @@ public class MyProfileData {
     public void setProfileLinkedin(String profileLinkedin) {
         MyProfileLinkedin = profileLinkedin;
     }
+
 }

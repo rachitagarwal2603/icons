@@ -312,8 +312,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                     item.setProfilePic(feedObj.getString("authorImage"));
                 item.setTimeStamp(feedObj.getString("timestamp"));
                 item.setCommentCount(Integer.parseInt(feedObj.getString("commentCount")));
-//                item.setUrl(feedObj.getString("url"));
-                //String image = feedObj.isNull("image") ? null : feedObj.getString("image");
+                if(!feedObj.getString("url").equals(""))
+                    item.setUrl(feedObj.getString("url"));
+//                String image = feedObj.isNull("image") ? null : feedObj.getString("image");
                 String image = feedObj.getString("image");
                 if (!image.equals("null"))
                     item.setImage(image);

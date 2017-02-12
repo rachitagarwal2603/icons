@@ -3,27 +3,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_profile"
-            android:icon="@android:drawable/ic_menu_report_image"
+            android:icon="@drawable/menu_profile"
             android:title=" My Profile"
             />
         <item
             android:id="@+id/nav_notification"
-            android:icon="@android:drawable/ic_menu_report_image"
+            android:icon="@drawable/menu_notifications"
             android:title=" Notification List"
             />
         <item
             android:id="@+id/question_paper"
-            android:icon="@android:drawable/ic_input_add"
+            android:icon="@drawable/menu_question_paper"
             android:title=" Question Paper"
             />
         <item
             android:id="@+id/resumes"
-            android:icon="@android:drawable/ic_menu_add"
+            android:icon="@drawable/menu_resume"
             android:title=" Resumes &amp; CVs"
             />
         <item
             android:id="@+id/nav_add_post"
-            android:icon="@android:drawable/ic_input_add"
+            android:icon="@drawable/menu_add_post"
             android:title=" Add Post"/>
 
     </group>
@@ -31,11 +31,11 @@
         <menu>
             <item
                 android:id="@+id/nav_aboutUs"
-                android:icon="@android:drawable/ic_menu_info_details"
+                android:icon="@drawable/menu_developers"
                 android:title=" About us"/>
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@android:drawable/ic_menu_rotate"
+                android:icon="@drawable/menu_logout"
                 android:title=" Logout"/>
         </menu>
     </item>

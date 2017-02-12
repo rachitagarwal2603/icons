@@ -26,5 +26,13 @@
     <include layout="@layout/news_feed"/>
     <include layout="@layout/search_layout"/>
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_launcher_setting"
+        app:borderWidth="0dp"
+        app:layout_behavior="app.racdeveloper.com.bencolconnect.FABBehavior"/>
 </android.support.design.widget.CoordinatorLayout>
