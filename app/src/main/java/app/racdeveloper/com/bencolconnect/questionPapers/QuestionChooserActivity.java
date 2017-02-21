@@ -52,8 +52,7 @@ public class QuestionChooserActivity extends AppCompatActivity{
                     branch = String.valueOf(position);
                     isSpinnerInitial = false;
                 } else {
-                    if
-                            (position == 0) ;
+                    if (position == 0) ;
                     else {
                         branch = String.valueOf(position);
                         Toast.makeText(getBaseContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
@@ -63,9 +62,7 @@ public class QuestionChooserActivity extends AppCompatActivity{
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
-
 
         });
 
@@ -92,12 +89,8 @@ public class QuestionChooserActivity extends AppCompatActivity{
                     }
                 }
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-
+            public void onNothingSelected(AdapterView<?> parent) {            }
         });
 
         Button button = (Button) findViewById(R.id.search_button);

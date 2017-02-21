@@ -6,11 +6,10 @@ package app.racdeveloper.com.bencolconnect.questionPapers;
 public class QuestionPaperData {
 
         private int id;
-        private String papername,papercode,papercontributor,paperurl;
+        private String papername,papercontributor,paperurl;
 
-        public QuestionPaperData(int id, String papercode, String papername, String paperurl, String papercontributor) {
+        public QuestionPaperData(int id, String papername, String paperurl, String papercontributor) {
             this.id = id;
-            this.papercode = papercode;
             this.papername = papername;
             this.papercontributor = papercontributor;
             this.paperurl = paperurl;
@@ -30,14 +29,6 @@ public class QuestionPaperData {
 
         public void setPapername(String papername) {
             this.papername = papername;
-        }
-
-        public String getPapercode() {
-            return papercode;
-        }
-
-        public void setPapercode(String papercode) {
-            this.papercode = papercode;
         }
 
         public String getPapercontributor() {

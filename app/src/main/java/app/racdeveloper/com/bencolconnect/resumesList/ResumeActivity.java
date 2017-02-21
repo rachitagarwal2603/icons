@@ -21,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -34,22 +33,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.apache.commons.io.IOUtils;
+import net.gotev.uploadservice.MultipartUploadRequest;
+import net.gotev.uploadservice.UploadNotificationConfig;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import app.racdeveloper.com.bencolconnect.Constants;
+import app.racdeveloper.com.bencolconnect.FilePath;
+import app.racdeveloper.com.bencolconnect.QueryPreferences;
 import app.racdeveloper.com.bencolconnect.R;
 
 public class ResumeActivity extends AppCompatActivity {
@@ -63,6 +62,10 @@ public class ResumeActivity extends AppCompatActivity {
     private List<ResumeData> data_list;
     RequestQueue requestQueue;
     String URL = Constants.URL + "resumes/get";
+    String URL_UPLOAD = Constants.URL + "resumes/upload";
+
+    private Uri filePath;
+    String[] mBranch;           // To fetch branch list from resources
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,8 @@ public class ResumeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resume);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mBranch= getResources().getStringArray(R.array.branch);
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coLayout);
         fabResume = (FloatingActionButton) findViewById(R.id.fabResume);
@@ -116,32 +121,14 @@ public class ResumeActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode==RESULT_OK && data!=null){
-            Uri mUri= data.getData();
+        if (resultCode==RESULT_OK  && data!=null){
+             filePath = data.getData();
 
-//            File dir= Environment.getExternalStorageDirectory();
-//            File filePDF= new File(dir, mUri.toString());
-//            String encodeFileToBase64Binary = encodeFileToBase64Binary(filePDF);
-
-//            Toast.makeText(this, "Encoded : "+ encodeFileToBase64Binary, Toast.LENGTH_SHORT).show();
-            String encoded = null;
-            byte[] byteArray = new byte[0];
-            try {
-                InputStream inputStream = new FileInputStream(mUri.toString());
-
-                byteArray = IOUtils.toByteArray(inputStream);
-                encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Toast.makeText(this, "Encoded : "+ encoded, Toast.LENGTH_SHORT).show();
-
-
-            Snackbar snack= Snackbar.make(coordinatorLayout, ""+ mUri.toString(), Snackbar.LENGTH_INDEFINITE)
+            Snackbar snack= Snackbar.make(coordinatorLayout, ""+ filePath.toString(), Snackbar.LENGTH_INDEFINITE)
                     .setAction("SEND", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            uploadMultipart();
                         }
                     });
             snack.setActionTextColor(Color.WHITE);
@@ -155,31 +142,32 @@ public class ResumeActivity extends AppCompatActivity {
         }
     }
 
-    private String encodeFileToBase64Binary(File filePDF) {
-        String encodedString = "0";
-        try {
-            InputStream inputStream = new FileInputStream(filePDF);//You can get an inputStream using any IO API
-            byte[] bytes;
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
+    public void uploadMultipart() {
+        //getting name for the image
+
+        //getting the actual path of the image
+        String path = FilePath.getPath(this, filePath);
+        Toast.makeText(this, ""+ path, Toast.LENGTH_LONG).show();
+
+        if (path == null) {
+            Toast.makeText(this, "Please move your .pdf file to internal storage and retry", Toast.LENGTH_LONG).show();
+        } else {
+            //Uploading code
             try {
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    output.write(buffer, 0, bytesRead);
-                }
-                Toast.makeText(ResumeActivity.this, "Encoded2 : "+ encodedString, Toast.LENGTH_SHORT).show();
+                String uploadId = UUID.randomUUID().toString();
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                //Creating a multi part request
+                new MultipartUploadRequest(this, uploadId, URL_UPLOAD)
+                        .addFileToUpload(path, "pdf") //Adding file
+                        .addParameter("token", QueryPreferences.getToken(this))
+                        .setNotificationConfig(new UploadNotificationConfig())
+                        .setMaxRetries(2)
+                        .startUpload(); //Starting the upload
+
+            } catch (Exception exc) {
+                Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            bytes = output.toByteArray();
-            encodedString = Base64.encodeToString(bytes, Base64.DEFAULT);
-            Toast.makeText(ResumeActivity.this, "Encoded3 : "+ encodedString, Toast.LENGTH_SHORT).show();
-
-        } catch (IOException es) {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
         }
-        return encodedString;
     }
 
     public void download(final View view) {
@@ -234,7 +222,7 @@ public class ResumeActivity extends AppCompatActivity {
                             for (int i = 0; i < resumeArray.length(); i++) {
                                 JSONObject resumeObject = resumeArray.getJSONObject(i);
                                 ResumeData resume = new ResumeData(resumeObject.getInt("id"), resumeObject.getString("name"),
-                                        resumeObject.getString("branch"), resumeObject.getString("batch"),
+                                        mBranch[Integer.parseInt(resumeObject.getString("branch"))], resumeObject.getString("batch"),
                                         resumeObject.getString("url"));
                                 data_list.add(resume);
                             }

@@ -42,7 +42,7 @@
         <item>Light</item>
         <item>Dark</item>
     </array>
-    <string name="pref_storage_label">Storage</string>
+    <string name="pref_storage_label">Storage (PDFs)</string>
     <string name="pref_storage_key">storage</string>
     <string name="pref_storage_internal">Internal Storage</string>
     <string name="pref_storage_card">SD Card</string>

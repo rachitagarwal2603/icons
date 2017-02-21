@@ -55,6 +55,7 @@ public class MyProfile extends AppCompatActivity {
             userEmail, userContact;
 
     private boolean isProfileLoaded=false;          // to keep knowledge about whether profile is loaded or not.. so that UpdateProfileActivity can be populated with fetched data
+    String[] mBranch;           // To fetch branch list from resources
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class MyProfile extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.my_profile_activity);
 
+        mBranch= getResources().getStringArray(R.array.branch);
         mProgressView = findViewById(R.id.progressbar);
         showProgress(true);
 
@@ -219,7 +221,7 @@ public class MyProfile extends AppCompatActivity {
 //                                if (!profileObject.getString("status").equals(""))
 //                                    myProfileData.setProfileStatus(profileObject.getString("status"));
                                 if (!profileObject.getString("branch").equals(""))
-                                    myProfileData.setProfileBranch(profileObject.getString("branch"));
+                                    myProfileData.setProfileBranch(mBranch[Integer.parseInt(profileObject.getString("branch"))]);
                                 if (!profileObject.getString("batch").equals(""))
                                     myProfileData.setProfileBatch(profileObject.getString("batch"));
                                 if (!profileObject.getString("rollno").equals(""))

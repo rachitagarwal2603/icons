@@ -129,8 +129,8 @@ public class QuestionPaperActivity extends AppCompatActivity {
                             JSONArray papersArray = response.getJSONArray("papers");
                             for (int i = 0; i < papersArray.length(); i++) {
                                 JSONObject paperObject = papersArray.getJSONObject(i);
-                                QuestionPaperData questionPaper = new QuestionPaperData(paperObject.getInt("id"), paperObject.getString("pcode"),
-                                        paperObject.getString("pname"), paperObject.getString("url"),
+                                QuestionPaperData questionPaper = new QuestionPaperData(paperObject.getInt("id"),
+                                        paperObject.getString("subject"), paperObject.getString("url"),
                                         paperObject.getString("contributor"));
                                 data_list.add(questionPaper);
                             }

@@ -36,7 +36,6 @@ public class QuestionPaperViewAdapter extends RecyclerView.Adapter<QuestionPaper
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         holder.questionName.setText(dataList.get(position).getPapername());
-        holder.questionCode.setText(dataList.get(position).getPapercode());
         holder.questionContributor.setText(dataList.get(position).getPapercontributor());
         // Glide.with(context).load(dataList.get(position).getPaperurl()).into(holder.questionImage);
     }
@@ -50,7 +49,6 @@ public class QuestionPaperViewAdapter extends RecyclerView.Adapter<QuestionPaper
 
         public ImageView questionImage;
         public TextView questionName;
-        public TextView questionCode;
         public TextView questionContributor;
 
         public ViewHolder(View itemView)
@@ -58,7 +56,6 @@ public class QuestionPaperViewAdapter extends RecyclerView.Adapter<QuestionPaper
             super(itemView);
             questionImage = (ImageView)itemView.findViewById(R.id.paperImage);
             questionName = (TextView)itemView.findViewById(R.id.paperName);
-            questionCode = (TextView)itemView.findViewById(R.id.paperCode);
             questionContributor = (TextView)itemView.findViewById(R.id.paperContributor);
         }
     }

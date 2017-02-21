@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -90,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     private View mProgressNewsFeedView;
     DrawerLayout drawerLayout;
+    FloatingActionButton fabForMailToAdmin;
 
     private static int newestFeedID;      //keep record of newest updated record of newsFeed
     boolean isRefresh = false;
@@ -132,6 +134,13 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         emailNav = (TextView) header.findViewById(R.id.tvEmail);         //part of navigation bar header layout
         profileNav = (ImageView) header.findViewById(R.id.imageView);    //part of navigation bar header layout
 
+        fabForMailToAdmin = (FloatingActionButton) findViewById(R.id.fabButton);
+        fabForMailToAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, MailToAdminActivity.class));
+            }
+        });
         mProgressNewsFeedView = findViewById(R.id.news_feed_progress_bar);
         showProgress(true);
 
@@ -381,8 +390,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         if (id == R.id.action_settings) {
             Intent i = new Intent(ProfileActivity.this, SettingsActivity.class);
             startActivity(i);
-        } else if (id == R.id.action_bookmarks)
-            return true;else if (id==R.id.shareMenu) {
+        } else if (id==R.id.shareMenu) {
             View screen = getWindow().getDecorView().getRootView();
             screen.setDrawingCacheEnabled(true);
             Bitmap screenShot = screen.getDrawingCache();

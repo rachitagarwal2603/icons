@@ -25,7 +25,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/profile" />
+            android:src="@drawable/default_profile_pic" />
 
         <ImageView
             android:id="@+id/profile_update"
@@ -45,7 +45,7 @@
             android:layout_marginTop="8dp"
             android:layout_below="@+id/user_profile_photo"
             android:layout_centerHorizontal="true"
-            android:text="Rishabh Singh"
+            android:text="User Name"
             android:textColor="#060606"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -59,7 +59,7 @@
             android:layout_below="@+id/user_profile_name"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="Most Talented Guy of BIET... Secretary of ECE department &amp; E- Club"
+            android:text="Welcome to BIET\n User Profile is loading. Please wait..."
             android:textColor="#060c2e"
             android:textSize="14sp" />
         <LinearLayout
@@ -75,14 +75,14 @@
                 android:id="@+id/fb_link_image"
                 android:scaleType="fitCenter"
                 android:src="@drawable/fb_link_image"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginRight="8dp"/>
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:id="@+id/linkedin_link_image"
                 android:scaleType="fitCenter"
                 android:src="@drawable/linkedin_link_image"
-                android:layout_marginRight="8dp"/>
+                android:layout_marginRight="10dp"/>
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"

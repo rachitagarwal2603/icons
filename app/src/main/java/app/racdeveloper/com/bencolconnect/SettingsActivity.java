@@ -23,9 +23,9 @@ public class SettingsActivity extends PreferenceActivity
             super.onCreate(savedInstanceState);
 
             addPreferencesFromResource(R.xml.settings_pref_general);
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_theme_key)));
+//            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_theme_key)));
             bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_storage_key)));
-            bindPreferenceSummaryToValue(findPreference("theme"));
+//            bindPreferenceSummaryToValue(findPreference("theme"));
 
         }
     }
