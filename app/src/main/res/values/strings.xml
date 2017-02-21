@@ -76,6 +76,16 @@
         <item>Information Technology</item>
         <item>Mechanical Engineering</item>
     </string-array>
+    <string-array name="branchShort">
+        <item>--Select--</item>
+        <item>CE</item>
+        <item>CH</item>
+        <item>CSE</item>
+        <item>ECE</item>
+        <item>EE</item>
+        <item>IT</item>
+        <item>ME</item>
+    </string-array>
     <string-array name="batch">
         <item>--Select--</item>
         <item>2012–16</item>

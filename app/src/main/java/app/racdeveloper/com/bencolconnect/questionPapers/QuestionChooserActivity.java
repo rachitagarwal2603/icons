@@ -2,7 +2,12 @@ package app.racdeveloper.com.bencolconnect.questionPapers;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,9 +15,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import net.gotev.uploadservice.MultipartUploadRequest;
+import net.gotev.uploadservice.UploadNotificationConfig;
+
+import java.util.UUID;
+
+import app.racdeveloper.com.bencolconnect.Constants;
+import app.racdeveloper.com.bencolconnect.FilePath;
+import app.racdeveloper.com.bencolconnect.QueryPreferences;
 import app.racdeveloper.com.bencolconnect.R;
 
 /**
@@ -27,6 +43,11 @@ public class QuestionChooserActivity extends AppCompatActivity{
     public static String semester = null;
     int branchPosition,semesterPosition;
 
+    private CoordinatorLayout coordinatorLayout;
+    private FloatingActionButton fabQuestion;
+    private Uri filePath;
+    String URL_UPLOAD = Constants.URL + "question_papers/upload";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +57,36 @@ public class QuestionChooserActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
         Toast.makeText(QuestionChooserActivity.this, "Select your choice", Toast.LENGTH_SHORT).show();
+
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coorLayout);
+        fabQuestion = (FloatingActionButton) findViewById(R.id.fabQuestion);
+        fabQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, "     Upload Question Papers", Snackbar.LENGTH_LONG)
+                        .setAction("UPLOAD", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                                i.setType("application/pdf");
+                                i.addCategory(Intent.CATEGORY_OPENABLE);
+                                startActivityForResult(Intent.createChooser(i, "Select your Resume PDF"), 1);
+                            }
+                        });
+
+                // Changing message text color
+                snackbar.setActionTextColor(Color.WHITE);
+
+                // Changing action button text color
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(Color.rgb(25,25,112));
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                textView.setTextSize(18);
+                snackbar.show();
+            }
+        });
 
         spinner = (Spinner) findViewById(R.id.spinnerbranch);
         adapter = adapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
@@ -123,4 +174,152 @@ public class QuestionChooserActivity extends AppCompatActivity{
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode==RESULT_OK  && data!=null){
+            filePath = data.getData();
+
+            Snackbar snack= Snackbar.make(coordinatorLayout, ""+ filePath.toString(), Snackbar.LENGTH_INDEFINITE)
+                    .setAction("SEND", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            createAlertDialog();
+                        }
+                    });
+            snack.setActionTextColor(Color.WHITE);
+
+            View sbView = snack.getView();
+            sbView.setBackgroundColor(Color.rgb(25,25,112));
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
+            textView.setTextSize(16);
+            snack.show();
+        }
+    }
+
+    public void uploadMultipart() {
+        //getting name for the image
+
+        //getting the actual path of the image
+        String path = FilePath.getPath(this, filePath);
+        Toast.makeText(this, ""+ path, Toast.LENGTH_LONG).show();
+
+        if (path == null) {
+            Toast.makeText(this, "Please move your .pdf file to internal storage and retry", Toast.LENGTH_LONG).show();
+        } else {
+            //Uploading code
+            try {
+                String uploadId = UUID.randomUUID().toString();
+
+                //Creating a multi part request
+                new MultipartUploadRequest(this, uploadId, URL_UPLOAD)
+                        .addFileToUpload(path, "pdf") //Adding file
+                        .addParameter("token", QueryPreferences.getToken(this))
+                        .addParameter("subject", "")
+                        .addParameter("branch", "")
+                        .addParameter("semester", "")
+                        .setNotificationConfig(new UploadNotificationConfig())
+                        .setMaxRetries(2)
+                        .startUpload(); //Starting the upload
+
+            } catch (Exception exc) {
+                Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void createAlertDialog() {
+        final int[] branchCode = {0};
+        final int[] semester = {0};
+        final String[] subjectName = new String[1];
+
+        final AlertDialog.Builder builder= new AlertDialog.Builder(QuestionChooserActivity.this);
+        builder.setTitle("Select your Choice");
+
+        LinearLayout layout = new LinearLayout(QuestionChooserActivity.this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        final EditText subject = new EditText(QuestionChooserActivity.this);
+        subject.setTextSize(20);
+        subject.setMaxLines(1);
+        subject.setHint("Subject Name");
+        layout.addView(subject);
+
+        final TextView profileDetails = new TextView(QuestionChooserActivity.this);
+        profileDetails.setTextSize(20);
+        profileDetails.setText("\n\t\t\t\tUpdate your Profile Details");
+        layout.addView(profileDetails);
+
+        adapter = adapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (isSpinnerInitial) {
+                    branchCode[0] = position;
+                    isSpinnerInitial = false;
+                } else {
+                    if (position == 0) ;
+                    else {
+                        branchCode[0] = position;
+                        Toast.makeText(getBaseContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+
+        });
+        layout.addView(spinner);
+
+        adapter = adapter.createFromResource(this, R.array.semester, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (isSpinnerInitial) {
+                    semester[0] = position;
+                    isSpinnerInitial = false;
+                } else {
+                    if (position == 0) ;
+                    else {
+                        semester[0] = position;
+                        Toast.makeText(getBaseContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+
+        });
+        layout.addView(spinner);
+
+        builder.setView(layout);
+        builder.setPositiveButton("SEND", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                subjectName[0] = subject.getText().toString();
+                if(!subjectName[0].equals("") && branchCode[0]!=0 && semester[0]!=0 )
+                    uploadMultipart();
+            }
+        });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
 }

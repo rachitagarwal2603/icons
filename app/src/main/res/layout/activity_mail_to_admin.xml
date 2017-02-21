@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_qp">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:orientation="vertical"
-    android:background="@drawable/bg_qp">
+    android:orientation="vertical">
 
     <TextView
         android:layout_marginTop="100dp"
@@ -17,10 +21,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:hint="Enter Message"
         android:layout_marginTop="20dp"
-        android:ems="10"
         android:id="@+id/etMessage" />
 
     <Button
@@ -33,6 +35,6 @@
         android:id="@+id/bMessageSend"
         android:textStyle="bold"
         android:background="#f2a94c"
-        android:textColor="#2b2a2a"
-        />
+        android:textColor="#2b2a2a" />
 </LinearLayout>
+</ScrollView>

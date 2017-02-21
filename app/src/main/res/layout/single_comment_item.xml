@@ -40,8 +40,9 @@
         android:textColor="#080228"/>
 
     <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:padding="2dp"
         app:srcCompat="@drawable/edit"
         android:scaleType="fitXY"
         android:id="@+id/editCommentOption"

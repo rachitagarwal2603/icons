@@ -74,7 +74,7 @@ public class ResumeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mBranch= getResources().getStringArray(R.array.branch);
+        mBranch= getResources().getStringArray(R.array.branchShort);
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coLayout);
         fabResume = (FloatingActionButton) findViewById(R.id.fabResume);

@@ -119,14 +119,13 @@ public class PostMsgActivity extends AppCompatActivity {
                         String data = dataForPost.getText().toString();
                         if (isImageSet) {
                             String imageString = getStringImage(bitmap);
-                            if (!data.equals(""))
-                                postMessage(data, imageString);
-                            else
-                                postMessage(" ", imageString);
-                        } else if (!data.equals("")) {
+                            postMessage(data, imageString);
+                        } else if (!data.equals("") || !mDataUrl.equals("")) {
                             postMessage(data, null);
-                        } else{
-                            postMessage(" ", null);
+                        }
+                        else{
+                            Toast.makeText(PostMsgActivity.this, "All Fields empty!", Toast.LENGTH_SHORT).show();
+                            isSendClicked = false;
                         }
                     }
                 }

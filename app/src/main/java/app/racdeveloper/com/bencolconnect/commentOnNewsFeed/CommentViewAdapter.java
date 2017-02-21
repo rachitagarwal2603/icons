@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import app.racdeveloper.com.bencolconnect.QueryPreferences;
 import app.racdeveloper.com.bencolconnect.R;
 
 public class CommentViewAdapter extends RecyclerView.Adapter<CommentViewAdapter.ViewHolder> {
@@ -38,6 +39,8 @@ public class CommentViewAdapter extends RecyclerView.Adapter<CommentViewAdapter.
         Picasso.with(context).load(dataList.get(position).getCommentUserImageUrl()).into(holder.UserImage);
         holder.UserName.setText(dataList.get(position).getCommentUserName());
         holder.UserComment.setText(dataList.get(position).getCommentText());
+        if (!dataList.get(position).getCommentUserRollNo().equals(QueryPreferences.getRollNo(context)))
+            holder.editCommentOptions.setVisibility(View.GONE);
         holder.bindHolder(dataList.get(position));
     }
 

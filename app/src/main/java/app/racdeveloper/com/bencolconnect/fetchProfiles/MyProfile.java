@@ -91,7 +91,10 @@ public class MyProfile extends AppCompatActivity {
         LinkedinContactButton = (ImageView) findViewById(R.id.linkedin_link_image);
 
         Intent i = getIntent();
-        boolean isUpdateRequired = (i.getStringExtra("userProfileRequest"))==null;
+        boolean isUpdateRequired = (i.getStringExtra("userRollno")==null);
+        if(!isUpdateRequired)
+            isUpdateRequired = (i.getStringExtra("userRollno")).equals(QueryPreferences.getRollNo(this));
+
         if(!isUpdateRequired){
             update.setVisibility(View.GONE);
             URL = Constants.URL + "basics/get_profile";

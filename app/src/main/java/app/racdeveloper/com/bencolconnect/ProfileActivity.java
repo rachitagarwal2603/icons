@@ -617,6 +617,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                                 name[0] = details.getString("name");
                                 email[0] = details.getString("email");
                                 imageUrl[0] = details.getString("imageUrl");
+                                if (email[0].length()>16){
+                                    email[0] = email[0].substring(0,15)+"...";
+                                }
                                 if(details.getString("rollno")!=null)
                                     QueryPreferences.setRollNo(ProfileActivity.this, details.getString("rollno"));
                                 Log.d("pppp", "" + name[0] + " " + email[0]);
