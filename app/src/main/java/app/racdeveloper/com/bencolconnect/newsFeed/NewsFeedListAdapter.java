@@ -91,7 +91,7 @@ public class NewsFeedListAdapter extends BaseAdapter {
 
         final NetworkImageView profilepic = (NetworkImageView) view.findViewById(R.id.profilePic);
 
-        FindImageView findImageView= (FindImageView) view.findViewById(R.id.feedImage1);
+        final FindImageView findImageView= (FindImageView) view.findViewById(R.id.feedImage1);
 
         final FeedItem item = feedItems.get(position);
 
@@ -134,8 +134,8 @@ public class NewsFeedListAdapter extends BaseAdapter {
 
 
         if(item.getUrl()!=null){
-            if(!item.getUrl().regionMatches(0, "https://", 0, 8)) ;              // to add at beginning "https://" to url
-                item.setUrl("https://"+item.getUrl());
+            if(!item.getUrl().regionMatches(0, "http://", 0, 8)) ;              // to add at beginning "https://" to url
+                item.setUrl("http://"+item.getUrl());
 //            url.setTextColor(Color.BLUE);
             url.setText(Html.fromHtml("<a href=\""+ item.getUrl() +"\">"+ item.getUrl() +"</a>"));
 //            url.setMovementMethod(LinkMovementMethod.getInstance());
@@ -165,9 +165,17 @@ public class NewsFeedListAdapter extends BaseAdapter {
                 zoomImageFromThumb(profilepic, item.getProfilePic());
             }
         });
+
         if(item.getImage()!=null){
             findImageView.setImageUrl(item.getImage(), imageLoader);
             findImageView.setVisibility(View.VISIBLE);
+            findImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    expandedImageView.setImageUrl(item.getImage(), imageLoader);
+                    zoomImageFromThumb(findImageView, item.getImage());
+                }
+            });
             findImageView.setResponseObserver(new FindImageView.ResponseObserver() {
                 @Override
                 public void onError() { }
@@ -181,7 +189,7 @@ public class NewsFeedListAdapter extends BaseAdapter {
         return view;
     }
 
-    private void zoomImageFromThumb(final View profileView, String imageResId) {
+    private void zoomImageFromThumb(final View imageLoaderView, String imageResId) {
         // If there's an animation in progress, cancel it
         // immediately and proceed with this one.
         if (mCurrentAnimator != null) {
@@ -199,9 +207,9 @@ public class NewsFeedListAdapter extends BaseAdapter {
         // view. Also set the container view's offset as the origin for the
         // bounds, since that's the origin for the positioning animation
         // properties (X, Y).
-        profileView.getGlobalVisibleRect(startBounds);
+        imageLoaderView.getGlobalVisibleRect(startBounds);
 
-        profileView.getRootView().findViewById(R.id.container)
+        imageLoaderView.getRootView().findViewById(R.id.container)
                 .getGlobalVisibleRect(finalBounds, globalOffset);
         startBounds.offset(-globalOffset.x, -globalOffset.y);
         finalBounds.offset(-globalOffset.x, -globalOffset.y);

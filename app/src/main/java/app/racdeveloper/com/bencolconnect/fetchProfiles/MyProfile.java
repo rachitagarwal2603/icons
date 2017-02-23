@@ -221,34 +221,37 @@ public class MyProfile extends AppCompatActivity {
                                     myProfileData.setProfileName(profileObject.getString("name"));
                                 if (!profileObject.getString("imageUrl").equals(""))
                                     myProfileData.setProfileImageUrl(profileObject.getString("imageUrl"));
-//                                if (!profileObject.getString("status").equals(""))
-//                                    myProfileData.setProfileStatus(profileObject.getString("status"));
+                                if (profileObject.getString("status")!=null)
+                                    myProfileData.setProfileStatus(profileObject.getString("status"));
                                 if (!profileObject.getString("branch").equals(""))
                                     myProfileData.setProfileBranch(mBranch[Integer.parseInt(profileObject.getString("branch"))]);
                                 if (!profileObject.getString("batch").equals(""))
                                     myProfileData.setProfileBatch(profileObject.getString("batch"));
                                 if (!profileObject.getString("rollno").equals(""))
                                     myProfileData.setProfileId(profileObject.getString("rollno"));
-//                                if (!profileObject.getString("councils").equals(""))
-//                                    myProfileData.setProfileCouncils(profileObject.getString("councils"));
-//                                if (!profileObject.getString("skills").equals(""))
-//                                    myProfileData.setProfileSkills(profileObject.getString("skills"));
-//                                if (!profileObject.getString("hobbies").equals(""))
-//                                    myProfileData.setProfileHobbies(profileObject.getString("hobbies"));
-//                                if (!profileObject.getString("bloodGroup").equals(""))
-//                                    myProfileData.setProfileBlood(profileObject.getString("bloodGroup"));
+                                if (profileObject.getString("councils")!=null)
+                                    myProfileData.setProfileCouncils(profileObject.getString("councils"));
+                                if (profileObject.getString("skills")!=null)
+                                    myProfileData.setProfileSkills(profileObject.getString("skills"));
+                                if (profileObject.getString("hobbies")!=null)
+                                    myProfileData.setProfileHobbies(profileObject.getString("hobbies"));
+                                if (profileObject.getString("bloodGroup")!=null)
+                                    myProfileData.setProfileBlood(profileObject.getString("bloodGroup"));
                                 if (!profileObject.getString("email").equals(""))
                                     myProfileData.setProfileEmail(profileObject.getString("email"));
-//                                if (!profileObject.getString("homeCity").equals(""))
-//                                    myProfileData.setProfileAddress(profileObject.getString("homeCity"));
-//                                if (!profileObject.getString("fbLink").equals(""))
-//                                    myProfileData.setProfileFb(profileObject.getString("fbLink"));
-//                                if (!profileObject.getString("githubLink").equals(""))
-//                                    myProfileData.setProfileGithub(profileObject.getString("githubLink"));
-//                                if (!profileObject.getString("linkedinLink").equals(""))
-//                                    myProfileData.setProfileLinkedin(profileObject.getString("linkedinLink"));
-//                                if (!profileObject.getString("phone").equals(""))
-//                                    myProfileData.setProfileContact(profileObject.getString("phone"));
+                                if (profileObject.getString("homeCity")!=null)
+                                    myProfileData.setProfileAddress(profileObject.getString("homeCity"));
+                                if (profileObject.getString("fbLink")!=null)
+                                    if (!profileObject.getString("fbLink").equals(""))
+                                        myProfileData.setProfileFb(profileObject.getString("fbLink"));
+                                if (profileObject.getString("githubLink")!=null)
+                                    if (!profileObject.getString("githubLink").equals(""))
+                                        myProfileData.setProfileGithub(profileObject.getString("githubLink"));
+                                if (profileObject.getString("linkedinLink")!=null)
+                                    if (!profileObject.getString("linkedinLink").equals(""))
+                                        myProfileData.setProfileLinkedin(profileObject.getString("linkedinLink"));
+                                if (profileObject.getString("phone")!=null)
+                                    myProfileData.setProfileContact(profileObject.getString("phone"));
                                 populateMyProfile();
 
                             }
@@ -298,8 +301,8 @@ public class MyProfile extends AppCompatActivity {
         userContact.append("\t\t\t"+myProfileData.getProfileContact());
 
         if (myProfileData.getProfileFb() != null) {
-            if (!myProfileData.getProfileFb().regionMatches(0, "https://", 0, 8))
-                myProfileData.setProfileFb("https://"+ myProfileData.getProfileFb());
+            if (!myProfileData.getProfileFb().regionMatches(0, "http://", 0, 8))
+                myProfileData.setProfileFb("http://"+ myProfileData.getProfileFb());
             fbContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -308,8 +311,8 @@ public class MyProfile extends AppCompatActivity {
             });
         }
         if (myProfileData.getProfileGithub() != null) {
-            if (!myProfileData.getProfileGithub().regionMatches(0, "https://", 0, 8))
-                myProfileData.setProfileGithub("https://"+ myProfileData.getProfileGithub());
+            if (!myProfileData.getProfileGithub().regionMatches(0, "http://", 0, 8))
+                myProfileData.setProfileGithub("http://"+ myProfileData.getProfileGithub());
             GithubContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -318,8 +321,8 @@ public class MyProfile extends AppCompatActivity {
             });
         }
         if (myProfileData.getProfileLinkedin() != null) {
-            if (!myProfileData.getProfileLinkedin().regionMatches(0, "https://", 0, 8))
-                myProfileData.setProfileLinkedin("https://"+ myProfileData.getProfileLinkedin());
+            if (!myProfileData.getProfileLinkedin().regionMatches(0, "http://", 0, 8))
+                myProfileData.setProfileLinkedin("http://"+ myProfileData.getProfileLinkedin());
             LinkedinContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

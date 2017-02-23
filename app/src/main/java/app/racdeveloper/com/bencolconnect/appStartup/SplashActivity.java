@@ -48,17 +48,22 @@ public class SplashActivity extends AppCompatActivity {
                     } else {
                         Intent receivedIntent=getIntent();
                         String receivedAction=receivedIntent.getAction();
-                        if(receivedAction.equals(Intent.ACTION_SEND)) {
-                            Intent postIntent=new Intent(SplashActivity.this,PostMsgActivity.class);
-                            String receivedText=receivedIntent.getStringExtra(Intent.EXTRA_TEXT);
-                            Uri receivedUri=receivedIntent.getParcelableExtra(Intent.EXTRA_STREAM);
-                            if (receivedText != null) {
-                                postIntent.putExtra("Text",receivedText);
+                        if(receivedAction!=null) {
+                            if (receivedAction.equals(Intent.ACTION_SEND)) {
+                                Intent postIntent = new Intent(SplashActivity.this, PostMsgActivity.class);
+                                String receivedText = receivedIntent.getStringExtra(Intent.EXTRA_TEXT);
+                                Uri receivedUri = receivedIntent.getParcelableExtra(Intent.EXTRA_STREAM);
+                                if (receivedText != null) {
+                                    postIntent.putExtra("Text", receivedText);
+                                }
+                                if (receivedUri != null) {
+                                    postIntent.putExtra("ImageUri", receivedUri);
+                                }
+                                startActivity(postIntent);
+                            }else {
+                                Intent i = new Intent(SplashActivity.this, ProfileActivity.class);
+                                startActivity(i);
                             }
-                            if (receivedUri != null) {
-                                postIntent.putExtra("ImageUri",receivedUri);
-                            }
-                            startActivity(postIntent);
                         }
                         else {
                             Intent i = new Intent(SplashActivity.this, ProfileActivity.class);

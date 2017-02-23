@@ -106,15 +106,11 @@ public class QuestionChooserActivity extends AppCompatActivity{
                     if (position == 0) ;
                     else {
                         branch = String.valueOf(position);
-                        Toast.makeText(getBaseContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         spinner = (Spinner) findViewById(R.id.spinnersemester);
@@ -136,7 +132,6 @@ public class QuestionChooserActivity extends AppCompatActivity{
                             (position == 0) ;
                     else {
                         semester = String.valueOf(position);
-                        Toast.makeText(getBaseContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

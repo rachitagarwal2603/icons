@@ -157,11 +157,6 @@ public class UpdateProfileDetails extends AppCompatActivity{
             focusView= etAddress;
             setProfileCheck=false;
         }
-        else if (facebookLink.equals("")){
-            etFacebookLink.setError("Field Required");
-            focusView= etFacebookLink;
-            setProfileCheck=false;
-        }
         if(setProfileCheck){
             showProgress(true);
             setProfile();

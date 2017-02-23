@@ -30,6 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:src="@drawable/upload_fab_icon" />
 
 </android.support.design.widget.CoordinatorLayout>

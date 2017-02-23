@@ -216,6 +216,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Notification notification = mBuilder
                 .setSmallIcon(icon)
                 .setTicker(title)
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setAutoCancel(true)
                 .setContentTitle(title)
                 .setContentText(message)
@@ -241,12 +243,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 R.layout.big_notification);
 
         Intent intent= intentAction(isTypeWebView);
-        // Open NotificationView Class on Notification Click
-//        Intent intent = new Intent(this, NotificationViewActivity.class);
-//        // Send data to NotificationView Class
-//        intent.putExtra("title", title);
-//        intent.putExtra("message", message);
-        // Open NotificationView.java Activity
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 

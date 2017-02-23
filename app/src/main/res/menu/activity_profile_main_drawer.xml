@@ -7,24 +7,29 @@
             android:title=" My Profile"
             />
         <item
-            android:id="@+id/nav_notification"
-            android:icon="@drawable/menu_notifications"
-            android:title=" Notification List"
-            />
+            android:id="@+id/nav_add_post"
+            android:icon="@drawable/menu_add_post"
+            android:title=" Add Post"/>
         <item
-            android:id="@+id/question_paper"
+            android:id="@+id/nav_question_paper"
             android:icon="@drawable/menu_question_paper"
             android:title=" Question Paper"
             />
         <item
-            android:id="@+id/resumes"
+            android:id="@+id/nav_resumes"
             android:icon="@drawable/menu_resume"
             android:title=" Resumes &amp; CVs"
             />
         <item
-            android:id="@+id/nav_add_post"
-            android:icon="@drawable/menu_add_post"
-            android:title=" Add Post"/>
+            android:id="@+id/nav_resultViewer"
+            android:icon="@drawable/menu_resume"
+            android:title=" Result Viewer"
+            />
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/menu_notifications"
+            android:title=" Notification List"
+            />
 
     </group>
     <item android:title="Extras">

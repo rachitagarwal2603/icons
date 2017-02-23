@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -35,12 +36,14 @@ public class NotificationList extends AppCompatActivity{
 
     ListView notificationList;
     List<String> list;
+    TextView tvCheck;           //if notifications loaded.... visibility gone
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        tvCheck = (TextView) findViewById(R.id.tvCheck);
         notificationList = (ListView) findViewById(R.id.lvNotification);
         notificationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,6 +70,7 @@ public class NotificationList extends AppCompatActivity{
                     //Log.i("ppp", resultKey[0]);
 
                     if (resultKey[0].equals("success")) {
+                        tvCheck.setVisibility(View.GONE);
                         list = new ArrayList<>();
                         JSONArray notificationArray= jsonObject.getJSONArray("notifications");
                         int length= notificationArray.length();
@@ -91,7 +95,7 @@ public class NotificationList extends AppCompatActivity{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                
+                Toast.makeText(NotificationList.this, "Error loading notifications...", Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jor);

@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -46,6 +47,7 @@ public class QuestionPaperActivity extends AppCompatActivity {
 
     DownloadManager manager;
 
+    TextView tvCheck;           //if no question paper found.... visibility up
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
     private View mProgressView;
@@ -61,6 +63,7 @@ public class QuestionPaperActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        tvCheck = (TextView) findViewById(R.id.tvCheck);
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         mProgressView = findViewById(R.id.question_progress);
         data_list = new ArrayList<>();
@@ -127,6 +130,7 @@ public class QuestionPaperActivity extends AppCompatActivity {
                             Log.d("pp",response.toString());
                             showProgress(false);
                             JSONArray papersArray = response.getJSONArray("papers");
+                            Log.d("pp", ""+papersArray);
                             for (int i = 0; i < papersArray.length(); i++) {
                                 JSONObject paperObject = papersArray.getJSONObject(i);
                                 QuestionPaperData questionPaper = new QuestionPaperData(paperObject.getInt("id"),
@@ -135,8 +139,8 @@ public class QuestionPaperActivity extends AppCompatActivity {
                                 data_list.add(questionPaper);
                             }
                             Log.d("pp", "This is data list item "+data_list.get(0).toString());
-
                         } catch (JSONException e) {
+                            tvCheck.setVisibility(View.VISIBLE);
                             e.printStackTrace();
                         }
                         adapter.notifyDataSetChanged();

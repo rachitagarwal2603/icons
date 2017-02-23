@@ -70,6 +70,7 @@ import app.racdeveloper.com.bencolconnect.newsFeed.FeedItem;
 import app.racdeveloper.com.bencolconnect.newsFeed.NewsFeedController;
 import app.racdeveloper.com.bencolconnect.newsFeed.NewsFeedListAdapter;
 import app.racdeveloper.com.bencolconnect.pushNotification.NotificationList;
+import app.racdeveloper.com.bencolconnect.pushNotification.NotificationWebview;
 import app.racdeveloper.com.bencolconnect.questionPapers.QuestionChooserActivity;
 import app.racdeveloper.com.bencolconnect.resumesList.ResumeActivity;
 
@@ -86,6 +87,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     private NewsFeedListAdapter listAdapter;
     private static List<FeedItem> feedItems;
     private String URL_FEED = Constants.URL + "newsFeeds/get";
+    private String resultViewerUrl = "http://results.odigos.in";
     TextView nameNav, emailNav; // Username and email on navigation bar
     ImageView profileNav;
 
@@ -98,6 +100,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     private static int preLast = 0;  // keep count of last item of newsFeed
     private static int lastFeedID;       // keep timestamp of last item of newsFeed
     boolean isScroll = false;
+    String[] mBranch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,6 +110,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mBranch = getResources().getStringArray(R.array.branchShort);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(ProfileActivity.this, drawerLayout, toolbar, 0, 0);
         drawerLayout.setDrawerListener(toggle);
@@ -465,7 +469,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                         int length= recordList.length();
                         for (int i=0;i<length;i++) {
                             JSONObject userFound= recordList.getJSONObject(i);
-                            String entity = userFound.getString("name")+ ", " +userFound.getString("branch")+ " ( " +userFound.getString("batch") +" )";
+                            String entity = userFound.getString("name")+ ", " +mBranch[Integer.parseInt(userFound.getString("branch"))]+ " ( " +userFound.getString("batch") +" )";
                             userNameList.add(entity);
                             userRollList.add(userFound.getString("rollno"));
                         }
@@ -497,10 +501,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         if (id == R.id.nav_add_post) {
             Intent i = new Intent(ProfileActivity.this, PostMsgActivity.class);
             startActivity(i);
-        } else if (id == R.id.question_paper) {
+        } else if (id == R.id.nav_question_paper) {
             Intent i = new Intent(ProfileActivity.this, QuestionChooserActivity.class);
             startActivity(i);
-        } else if (id == R.id.resumes) {
+        } else if (id == R.id.nav_resumes) {
             Intent i = new Intent(ProfileActivity.this, ResumeActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_logout) {
@@ -517,6 +521,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         } else if (id == R.id.nav_notification) {
             Intent i = new Intent(ProfileActivity.this, NotificationList.class);
             startActivity(i);
+        } else if (id == R.id.nav_resultViewer) {
+            startActivity(new Intent(ProfileActivity.this, NotificationWebview.class).putExtra("uri", resultViewerUrl));
         }
         return true;
     }
@@ -618,7 +624,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                                 email[0] = details.getString("email");
                                 imageUrl[0] = details.getString("imageUrl");
                                 if (email[0].length()>16){
-                                    email[0] = email[0].substring(0,15)+"...";
+                                    email[0] = email[0].substring(0,20)+"...";
                                 }
                                 if(details.getString("rollno")!=null)
                                     QueryPreferences.setRollNo(ProfileActivity.this, details.getString("rollno"));

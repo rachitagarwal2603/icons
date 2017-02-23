@@ -40,6 +40,7 @@ public class NotificationWebview extends AppCompatActivity {
         tvLoad= (TextView) findViewById(R.id.tvLoad);
 
         mWebView= (WebView) findViewById(R.id.web_view_page);
+        mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebChromeClient(new WebChromeClient(){
             @Override

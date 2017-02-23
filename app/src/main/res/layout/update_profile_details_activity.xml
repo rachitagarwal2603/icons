@@ -82,7 +82,7 @@
                 android:layout_width="304dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Status (What define you!)"
+                android:hint="Status (What define you!) (Required)"
                 android:id="@+id/etStatus"
                 android:maxLines="2"/>
             </android.support.design.widget.TextInputLayout>
@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/etFacebookLink_Details"
-                android:hint="Your Facebook Link (Required)"/>
+                android:hint="Your Facebook Link"/>
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="324dp"
