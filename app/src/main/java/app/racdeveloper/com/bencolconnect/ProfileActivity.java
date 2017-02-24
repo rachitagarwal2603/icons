@@ -21,7 +21,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -577,13 +576,12 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     }
 
     private void showDialogOnExit() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.myDialog));
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Do you want to exit?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                finishAffinity();
                 finish();
                 dialog.dismiss();
             }
@@ -595,7 +593,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 dialog.dismiss();
             }
         });
-
         builder.show();
     }
 

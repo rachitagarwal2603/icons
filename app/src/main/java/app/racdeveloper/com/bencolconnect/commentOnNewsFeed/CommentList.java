@@ -43,6 +43,7 @@ import app.racdeveloper.com.bencolconnect.R;
 public class CommentList extends Fragment {
 
     public static RecyclerView recyclerView;
+    private static TextView tvCheck;
     public static CommentViewAdapter adapter;
     public static List<CommentData> data_list;
     RequestQueue requestQueue;
@@ -76,7 +77,6 @@ public class CommentList extends Fragment {
         if(context instanceof Activity)
             activity= (Activity) context;
         this.listenerList= (ListUpdateListenerOnEdit) activity;
-        Toast.makeText(context, ""+ listenerList.toString(), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -86,6 +86,7 @@ public class CommentList extends Fragment {
         View v = inflater.inflate(R.layout.fragment_comment_list, container, false);
 
 //        listenerList = (ListUpdateListenerOnEdit) context;
+        tvCheck = (TextView) v.findViewById(R.id.tvCheck);
         recyclerView = (RecyclerView)v.findViewById(R.id.commentsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         data_list = new ArrayList<>();
@@ -97,13 +98,10 @@ public class CommentList extends Fragment {
 
     private void loadComments() {
         AsyncTask<Integer, Void, Void> task = new AsyncTask<Integer, Void, Void>() {
-
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
             }
-
 
             @Override
             protected Void doInBackground(Integer... integers) {
@@ -122,6 +120,8 @@ public class CommentList extends Fragment {
                         try {
 
                             JSONArray commentArray = response.getJSONArray("comments");
+                            if (commentArray.length()!=0)
+                                tvCheck.setVisibility(View.GONE);
                             for (int i = 0; i < commentArray.length(); i++) {
                                 JSONObject commentObject = commentArray.getJSONObject(i);
 

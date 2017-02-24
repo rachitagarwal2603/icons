@@ -139,15 +139,6 @@ public class MyProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-
-                // NOT TESTED!!!!!!!!
-//                new DialogInterface.OnClickListener(){
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        dialogInterface.dismiss();
-//                    }
-//                };
-
                 Intent i= new Intent(MyProfile.this, UpdateProfilePic.class);
                 startActivity(i);
             }
@@ -219,8 +210,9 @@ public class MyProfile extends AppCompatActivity {
                                     myProfileData = new MyProfileData();
                                 if (!profileObject.getString("name").equals(""))
                                     myProfileData.setProfileName(profileObject.getString("name"));
-                                if (!profileObject.getString("imageUrl").equals(""))
-                                    myProfileData.setProfileImageUrl(profileObject.getString("imageUrl"));
+                                if (profileObject.getString("imageUrl")!=null)
+                                    if (!profileObject.getString("imageUrl").equals(""))
+                                        myProfileData.setProfileImageUrl(profileObject.getString("imageUrl"));
                                 if (profileObject.getString("status")!=null)
                                     myProfileData.setProfileStatus(profileObject.getString("status"));
                                 if (!profileObject.getString("branch").equals(""))
@@ -283,9 +275,10 @@ public class MyProfile extends AppCompatActivity {
     }
 
     private void populateMyProfile(){
-        if(!myProfileData.getProfileImageUrl().equals(""))
-            Glide.with(MyProfile.this).load(myProfileData.getProfileImageUrl()).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).into(userImage);
+        if(myProfileData.getProfileImageUrl()!=null)
+            if(!myProfileData.getProfileImageUrl().equals(""))
+                Glide.with(MyProfile.this).load(myProfileData.getProfileImageUrl()).diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true).into(userImage);
 
         userName.setText(myProfileData.getProfileName());
         userBio.setText(myProfileData.getProfileStatus());
@@ -301,7 +294,7 @@ public class MyProfile extends AppCompatActivity {
         userContact.append("\t\t\t"+myProfileData.getProfileContact());
 
         if (myProfileData.getProfileFb() != null) {
-            if (!myProfileData.getProfileFb().regionMatches(0, "http://", 0, 8))
+            if (!myProfileData.getProfileFb().regionMatches(0, "http://", 0, 7) || !myProfileData.getProfileFb().regionMatches(0, "https://", 0, 8))
                 myProfileData.setProfileFb("http://"+ myProfileData.getProfileFb());
             fbContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -311,7 +304,7 @@ public class MyProfile extends AppCompatActivity {
             });
         }
         if (myProfileData.getProfileGithub() != null) {
-            if (!myProfileData.getProfileGithub().regionMatches(0, "http://", 0, 8))
+            if (!myProfileData.getProfileGithub().regionMatches(0, "http://", 0, 7) || !myProfileData.getProfileGithub().regionMatches(0, "https://", 0, 8))
                 myProfileData.setProfileGithub("http://"+ myProfileData.getProfileGithub());
             GithubContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -321,7 +314,7 @@ public class MyProfile extends AppCompatActivity {
             });
         }
         if (myProfileData.getProfileLinkedin() != null) {
-            if (!myProfileData.getProfileLinkedin().regionMatches(0, "http://", 0, 8))
+            if (!myProfileData.getProfileLinkedin().regionMatches(0, "http://", 0, 7) || !myProfileData.getProfileLinkedin().regionMatches(0, "https://", 0, 8))
                 myProfileData.setProfileLinkedin("http://"+ myProfileData.getProfileLinkedin());
             LinkedinContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override

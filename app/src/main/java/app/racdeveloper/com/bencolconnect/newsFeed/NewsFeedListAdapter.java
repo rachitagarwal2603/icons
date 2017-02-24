@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -90,6 +89,7 @@ public class NewsFeedListAdapter extends BaseAdapter {
         commentCount = (TextView) view.findViewById(R.id.tvComment);
 
         final NetworkImageView profilepic = (NetworkImageView) view.findViewById(R.id.profilePic);
+        profilepic.setDefaultImageResId(R.drawable.default_profile_pic);
 
         final FindImageView findImageView= (FindImageView) view.findViewById(R.id.feedImage1);
 
@@ -114,7 +114,6 @@ public class NewsFeedListAdapter extends BaseAdapter {
         commentCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(activity, "Post Id : " + item.getId(), Toast.LENGTH_SHORT).show();
                 activity.startActivity(new Intent(activity, CommentsActivity.class).putExtra("feedID", item.getId()+""));
             }
         });
@@ -134,7 +133,7 @@ public class NewsFeedListAdapter extends BaseAdapter {
 
 
         if(item.getUrl()!=null){
-            if(!item.getUrl().regionMatches(0, "http://", 0, 8)) ;              // to add at beginning "https://" to url
+            if(!item.getUrl().regionMatches(0, "http://", 0, 7) || !item.getUrl().regionMatches(0, "https://", 0, 8)) ;              // to add at beginning "https://" to url
                 item.setUrl("http://"+item.getUrl());
 //            url.setTextColor(Color.BLUE);
             url.setText(Html.fromHtml("<a href=\""+ item.getUrl() +"\">"+ item.getUrl() +"</a>"));
@@ -151,20 +150,22 @@ public class NewsFeedListAdapter extends BaseAdapter {
             url.setVisibility(View.GONE);
         }
 
-
-        if (!item.getProfilePic().equals(""))
-            profilepic.setImageUrl(item.getProfilePic(), imageLoader);
-
         // Load the high-resolution "zoomed-in" image.
         expandedImageView = (NetworkImageView) activity.findViewById(R.id.expanded_image);
 
-        profilepic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                expandedImageView.setImageUrl(item.getProfilePic(), imageLoader);
-                zoomImageFromThumb(profilepic, item.getProfilePic());
+        if (item.getProfilePic()!=null) {
+            if (!item.getProfilePic().equals("")) {
+                profilepic.setImageUrl(item.getProfilePic(), imageLoader);
+
+                profilepic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        expandedImageView.setImageUrl(item.getProfilePic(), imageLoader);
+                        zoomImageFromThumb(profilepic, item.getProfilePic());
+                    }
+                });
             }
-        });
+        }
 
         if(item.getImage()!=null){
             findImageView.setImageUrl(item.getImage(), imageLoader);

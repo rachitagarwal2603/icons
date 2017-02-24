@@ -35,8 +35,10 @@ import app.racdeveloper.com.bencolconnect.R;
 @SuppressLint("ValidFragment")
 public class AddCommentFragment extends Fragment {
 
+    private static String URL = Constants.URL + "newsFeeds/comments/post";
     EditText addCommentEditText;
     String feedID;
+    private boolean isAddClicked = false;           // Add button once clicked can't be clicked again
     @SuppressLint("ValidFragment")
     public AddCommentFragment(String feedID) {
         this.feedID = feedID;
@@ -75,7 +77,8 @@ public class AddCommentFragment extends Fragment {
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (addCommentEditText.getText().toString() != null) {
+                if (!addCommentEditText.getText().toString().equals("") && !isAddClicked) {
+                    isAddClicked = true;
                     submitComment(addCommentEditText.getText().toString());
                 }
             }
@@ -86,11 +89,7 @@ public class AddCommentFragment extends Fragment {
     public void submitComment(String comment) {
 
         final RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        String url = Constants.URL + "newsFeeds/comments/post";
         String token = QueryPreferences.getToken(getContext());
-//        String feedID = getActivity().getIntent().getExtras().getString("feedID");
-//        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNDA0MzEwMDM1IiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0XC9sYXJhdmVsLXByb2plY3RzXC93ZWJhcGlcL3B1YmxpY19odG1sXC9hcGlcL2xvZ2luIiwiaWF0IjoxNDc5OTU1NTgyLCJleHAiOjE1MTE0OTE1ODIsIm5iZiI6MTQ3OTk1NTU4MiwianRpIjoiOTY5MDQyZTgzYmRkMTk0ZGZmNzg2MTdiMDA5YjlhZjAifQ.viRCvuaYYTTF2CBCedyYuw-U4a3BpEYUAYf6Jyjm-Co";
-//        String feedID="2";
         Map<String, String> param = new HashMap<String, String>();
 
         Log.i("pppp", feedID+"");
@@ -98,7 +97,7 @@ public class AddCommentFragment extends Fragment {
         param.put("feedID",feedID);
         param.put("token", token);
         param.put("content", comment);
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(param), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(param), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 try {
@@ -116,11 +115,12 @@ public class AddCommentFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                isAddClicked = false;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                isAddClicked = false;
             }
         });
         requestQueue.add(jor);

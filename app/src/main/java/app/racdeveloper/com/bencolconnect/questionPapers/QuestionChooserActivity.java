@@ -46,7 +46,7 @@ public class QuestionChooserActivity extends AppCompatActivity{
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton fabQuestion;
     private Uri filePath;
-    String URL_UPLOAD = Constants.URL + "question_papers/upload";
+    String URL_UPLOAD = Constants.URL + "questionPapers/upload";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,30 +175,15 @@ public class QuestionChooserActivity extends AppCompatActivity{
         if (resultCode==RESULT_OK  && data!=null){
             filePath = data.getData();
 
-            Snackbar snack= Snackbar.make(coordinatorLayout, ""+ filePath.toString(), Snackbar.LENGTH_INDEFINITE)
-                    .setAction("SEND", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            createAlertDialog();
-                        }
-                    });
-            snack.setActionTextColor(Color.WHITE);
-
-            View sbView = snack.getView();
-            sbView.setBackgroundColor(Color.rgb(25,25,112));
-            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.WHITE);
-            textView.setTextSize(16);
-            snack.show();
+            createAlertDialog();
         }
     }
 
-    public void uploadMultipart() {
+    public void uploadMultipart(String subjectName, int branchCode, int semCode) {
         //getting name for the image
 
         //getting the actual path of the image
         String path = FilePath.getPath(this, filePath);
-        Toast.makeText(this, ""+ path, Toast.LENGTH_LONG).show();
 
         if (path == null) {
             Toast.makeText(this, "Please move your .pdf file to internal storage and retry", Toast.LENGTH_LONG).show();
@@ -211,9 +196,9 @@ public class QuestionChooserActivity extends AppCompatActivity{
                 new MultipartUploadRequest(this, uploadId, URL_UPLOAD)
                         .addFileToUpload(path, "pdf") //Adding file
                         .addParameter("token", QueryPreferences.getToken(this))
-                        .addParameter("subject", "")
-                        .addParameter("branch", "")
-                        .addParameter("semester", "")
+                        .addParameter("subject", "" + subjectName)
+                        .addParameter("branch", "" + branchCode)
+                        .addParameter("semester", "" + semCode)
                         .setNotificationConfig(new UploadNotificationConfig())
                         .setMaxRetries(2)
                         .startUpload(); //Starting the upload
@@ -230,7 +215,7 @@ public class QuestionChooserActivity extends AppCompatActivity{
         final String[] subjectName = new String[1];
 
         final AlertDialog.Builder builder= new AlertDialog.Builder(QuestionChooserActivity.this);
-        builder.setTitle("Select your Choice");
+        builder.setTitle("Select question paper details");
 
         LinearLayout layout = new LinearLayout(QuestionChooserActivity.this);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -241,15 +226,11 @@ public class QuestionChooserActivity extends AppCompatActivity{
         subject.setHint("Subject Name");
         layout.addView(subject);
 
-        final TextView profileDetails = new TextView(QuestionChooserActivity.this);
-        profileDetails.setTextSize(20);
-        profileDetails.setText("\n\t\t\t\tUpdate your Profile Details");
-        layout.addView(profileDetails);
-
+        final Spinner alertSpinner = new Spinner(this);
         adapter = adapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        alertSpinner.setAdapter(adapter);
+        alertSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -261,7 +242,6 @@ public class QuestionChooserActivity extends AppCompatActivity{
                     if (position == 0) ;
                     else {
                         branchCode[0] = position;
-                        Toast.makeText(getBaseContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -271,12 +251,13 @@ public class QuestionChooserActivity extends AppCompatActivity{
             }
 
         });
-        layout.addView(spinner);
+        layout.addView(alertSpinner);
 
+        Spinner alertSpinnerSem = new Spinner(this);
         adapter = adapter.createFromResource(this, R.array.semester, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        alertSpinnerSem.setAdapter(adapter);
+        alertSpinnerSem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -288,7 +269,6 @@ public class QuestionChooserActivity extends AppCompatActivity{
                     if (position == 0) ;
                     else {
                         semester[0] = position;
-                        Toast.makeText(getBaseContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -298,7 +278,7 @@ public class QuestionChooserActivity extends AppCompatActivity{
             }
 
         });
-        layout.addView(spinner);
+        layout.addView(alertSpinnerSem);
 
         builder.setView(layout);
         builder.setPositiveButton("SEND", new DialogInterface.OnClickListener() {
@@ -306,7 +286,10 @@ public class QuestionChooserActivity extends AppCompatActivity{
             public void onClick(DialogInterface dialog, int which) {
                 subjectName[0] = subject.getText().toString();
                 if(!subjectName[0].equals("") && branchCode[0]!=0 && semester[0]!=0 )
-                    uploadMultipart();
+                    uploadMultipart(subjectName[0], branchCode[0], semester[0]);
+                else {
+                    Toast.makeText(QuestionChooserActivity.this, "Submit Again and Fill details properly!!!", Toast.LENGTH_LONG).show();
+                }
             }
         });
         builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

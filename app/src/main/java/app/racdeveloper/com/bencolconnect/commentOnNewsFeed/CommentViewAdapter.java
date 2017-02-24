@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -68,7 +67,6 @@ public class CommentViewAdapter extends RecyclerView.Adapter<CommentViewAdapter.
             editCommentOptions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(itemView.getContext(), "" + commentData.getCommentID(), Toast.LENGTH_SHORT).show();
                     new CommentList(itemView.getContext()).editCommentOptions(commentData);
                 }
             });

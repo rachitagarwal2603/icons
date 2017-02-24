@@ -51,6 +51,8 @@ import java.util.Map;
  */
 public class SignUpActivity extends AppCompatActivity {
 
+    private static String URL = Constants.URL + "register";
+
     private EditText rollno, name, email, password, confirmpass;
     private Button signup;
     private View mProgressView;
@@ -316,7 +318,7 @@ public class SignUpActivity extends AppCompatActivity {
         String fcmToken = pref.getString("regId", null);
 
         final RequestQueue requestQueue = Volley.newRequestQueue(SignUpActivity.this);
-        String url = Constants.URL + "register";
+
         Map<String, String> param = new HashMap<String, String>();
         param.put("rollno", mRollno);
         param.put("name", mName);
@@ -327,7 +329,7 @@ public class SignUpActivity extends AppCompatActivity {
         param.put("image", imageString);
         param.put("fcmToken", fcmToken);
 
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(param), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(param), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 try {

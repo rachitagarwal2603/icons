@@ -42,7 +42,7 @@
     <ImageView
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:padding="2dp"
+        android:padding="5dp"
         app:srcCompat="@drawable/edit"
         android:scaleType="fitXY"
         android:id="@+id/editCommentOption"

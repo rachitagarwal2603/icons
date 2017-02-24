@@ -17,12 +17,12 @@ public class DeveloperActivity extends AppCompatActivity{
     private RecyclerView.LayoutManager mLayoutManager;
     private DeveloperViewAdapter developerViewAdapter;
     private List<DeveloperData> developerDataList;
-    private static final String [] RachitDeveloper = {"Rachit Agarwal","Computer Science & Engineering, 2014\nAndroid Master\nS/O Amit & Radha Agarwal","https://www.facebook.com/RachitAgarwal2603",
-            "https://in.linkedin.com/in/rachitagarwal2603","https://twitter.com/agarwal2603","https://plus.google.com/106068619461123247587"};
-    private static final String [] ShashankDeveloper = {"Shashank Singh","Computer Science & Engineering, 2014","https://www.facebook.com/ssinghhdi",
-            "https://www.linkedin.com/in/shashank-singh-477217b4","https://twitter.com","https://plus.google.com/114020383148970954239"};
-    private static final String [] RishabhDeveloper = {"Rishabh Singh","Electronics & Communication Engineering, 2014","https://www.facebook.com/rishu11116432",
-            "https://www.linkedin.com/in/rishusingh11116432","https://twitter.com/rishu11116432","https://plus.google.com/+RishabhSingh11116432"};
+    private static final String [] RachitDeveloper = {"Rachit Agarwal","Computer Science & Engineering, 2014\nAndroid Master\nS/O Amit & Radha Agarwal","http://www.facebook.com/RachitAgarwal2603",
+            "http://in.linkedin.com/in/rachitagarwal2603","http://github.com/rachitagarwal2603","http://plus.google.com/106068619461123247587"};
+    private static final String [] ShashankDeveloper = {"Shashank Singh","Computer Science & Engineering, 2014","http://www.facebook.com/ssinghhdi",
+            "http://www.linkedin.com/in/shashank-singh-477217b4","http://github.com/shashankatgit","http://plus.google.com/114020383148970954239"};
+    private static final String [] RishabhDeveloper = {"Rishabh Singh","Electronics & Communication Engineering, 2014","http://www.facebook.com/rishu11116432",
+            "http://www.linkedin.com/in/rishusingh11116432","http://github.com/rishu11116","http://plus.google.com/+RishabhSingh11116432"};
     private static final Integer [] DeveloperPhotos = {R.drawable.rachit,R.drawable.shashank,R.drawable.rishabh};
 
     public DeveloperActivity() {    }

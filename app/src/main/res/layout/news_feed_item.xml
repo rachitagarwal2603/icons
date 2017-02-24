@@ -12,7 +12,6 @@
         android:layout_marginTop="@dimen/feed_item_margin"
         android:background="@drawable/bg_parent_rounded_corner"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
         android:paddingTop="@dimen/feed_item_padding_top_bottom"
         >
 
@@ -86,9 +85,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No Comment"
+            android:paddingBottom="10dp"
             android:paddingTop="@dimen/feed_item_padding_top_bottom"
             android:id="@+id/tvComment"
-            android:layout_marginLeft="20dp"/>
+            android:paddingEnd="40dp"
+            android:paddingStart="20dp"/>
 
     </LinearLayout>
 
