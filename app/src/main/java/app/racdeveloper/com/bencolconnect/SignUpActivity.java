@@ -96,6 +96,9 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent();
+//                i.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+//                if (i.resolveActivity(getPackageManager())!=null)
+//                    startActivityForResult(i, 1);
                 i.setType("image/*");
                 i.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(i, "Select a Picture from"), 1);

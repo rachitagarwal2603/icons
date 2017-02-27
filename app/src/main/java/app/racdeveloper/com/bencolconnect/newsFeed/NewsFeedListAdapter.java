@@ -133,7 +133,7 @@ public class NewsFeedListAdapter extends BaseAdapter {
 
 
         if(item.getUrl()!=null){
-            if(!item.getUrl().regionMatches(0, "http://", 0, 7) || !item.getUrl().regionMatches(0, "https://", 0, 8)) ;              // to add at beginning "https://" to url
+            if(!item.getUrl().regionMatches(0, "http://", 0, 7) && !item.getUrl().regionMatches(0, "https://", 0, 8))              // to add at beginning "https://" to url
                 item.setUrl("http://"+item.getUrl());
 //            url.setTextColor(Color.BLUE);
             url.setText(Html.fromHtml("<a href=\""+ item.getUrl() +"\">"+ item.getUrl() +"</a>"));

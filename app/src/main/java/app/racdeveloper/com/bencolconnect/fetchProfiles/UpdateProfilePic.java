@@ -183,7 +183,7 @@ public class UpdateProfilePic extends AppCompatActivity{
 
         layout.addView(textView);
         builder.setView(layout);
-        builder.setPositiveButton("Update Details", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("UPDATE DETAILS", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finishAffinity();
@@ -192,7 +192,7 @@ public class UpdateProfilePic extends AppCompatActivity{
             }
         });
 
-        builder.setNegativeButton("Skip", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("SKIP", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

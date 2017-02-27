@@ -10,14 +10,6 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-
-    <!-- Strings related to navigation drawer -->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
-    </string>
 
     <!-- Strings related to Settings -->
     <string name="pref_notifications_label">Notifications</string>
@@ -25,27 +17,9 @@
     <string name="pref_notifications_off">Disabled</string>
     <string name="pref_notifications_on">Enabled</string>
     <string name="pref_notifications_default">Enabled</string>
-    <string name="pref_talkback_label">Talkback</string>
-    <string name="pref_talkback_key">talkback</string>
-    <string name="pref_talkback_off">Off</string>
-    <string name="pref_talkback_on">On</string>
-    <string name="pref_talkback_default">Off</string>
-    <string name="pref_theme_label">Theme</string>
-    <string name="pref_theme_key">theme</string>
-    <string name="pref_theme_light">Light</string>
-    <string name="pref_theme_dark">Dark</string>
-    <array name="pref_theme_options">
-        <item>Light</item>
-        <item>Dark</item>
-    </array>
-    <array name="pref_theme_values">
-        <item>Light</item>
-        <item>Dark</item>
-    </array>
     <string name="pref_storage_label">Storage (PDFs)</string>
     <string name="pref_storage_key">storage</string>
     <string name="pref_storage_internal">Internal Storage</string>
-    <string name="pref_storage_card">SD Card</string>
     <array name="pref_storage_options">
         <item>Internal Storage</item>
         <item>SD Card</item>
@@ -96,14 +70,7 @@
         <item>2017–21</item>
         <item>2018–22</item>
     </string-array>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_activity_detail">DetailActivity</string>
-    <string name="title_activity_question_activity">question_activity</string>
-    <string name="title_activity_question_paper_">QuestionPaper_Activity</string>
-    <string name="title_activity_question_paper">QuestionPaperActivity</string>
 
     <!-- Crop Image Strings     -->
-    <string name="title">Crop the image to be posted</string>
     <string name="crop">Crop</string>
-    <string name="croppedImageDesc">The cropped image.</string>
 </resources>

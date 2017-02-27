@@ -294,7 +294,7 @@ public class MyProfile extends AppCompatActivity {
         userContact.append("\t\t\t"+myProfileData.getProfileContact());
 
         if (myProfileData.getProfileFb() != null) {
-            if (!myProfileData.getProfileFb().regionMatches(0, "http://", 0, 7) || !myProfileData.getProfileFb().regionMatches(0, "https://", 0, 8))
+            if (!myProfileData.getProfileFb().regionMatches(0, "http://", 0, 7) && !myProfileData.getProfileFb().regionMatches(0, "https://", 0, 8))
                 myProfileData.setProfileFb("http://"+ myProfileData.getProfileFb());
             fbContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -304,7 +304,7 @@ public class MyProfile extends AppCompatActivity {
             });
         }
         if (myProfileData.getProfileGithub() != null) {
-            if (!myProfileData.getProfileGithub().regionMatches(0, "http://", 0, 7) || !myProfileData.getProfileGithub().regionMatches(0, "https://", 0, 8))
+            if (!myProfileData.getProfileGithub().regionMatches(0, "http://", 0, 7) && !myProfileData.getProfileGithub().regionMatches(0, "https://", 0, 8))
                 myProfileData.setProfileGithub("http://"+ myProfileData.getProfileGithub());
             GithubContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -314,7 +314,7 @@ public class MyProfile extends AppCompatActivity {
             });
         }
         if (myProfileData.getProfileLinkedin() != null) {
-            if (!myProfileData.getProfileLinkedin().regionMatches(0, "http://", 0, 7) || !myProfileData.getProfileLinkedin().regionMatches(0, "https://", 0, 8))
+            if (!myProfileData.getProfileLinkedin().regionMatches(0, "http://", 0, 7) && !myProfileData.getProfileLinkedin().regionMatches(0, "https://", 0, 8))
                 myProfileData.setProfileLinkedin("http://"+ myProfileData.getProfileLinkedin());
             LinkedinContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override

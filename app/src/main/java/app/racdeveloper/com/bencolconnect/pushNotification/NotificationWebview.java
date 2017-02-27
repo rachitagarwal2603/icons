@@ -12,7 +12,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import app.racdeveloper.com.bencolconnect.R;
 
@@ -36,7 +35,6 @@ public class NotificationWebview extends AppCompatActivity {
         mProgress= (ProgressBar) findViewById(R.id.webview_progress_bar);
         mProgress.setMax(100);
 
-        Toast.makeText(NotificationWebview.this, "This is a WebView", Toast.LENGTH_SHORT).show();
         tvLoad= (TextView) findViewById(R.id.tvLoad);
 
         mWebView= (WebView) findViewById(R.id.web_view_page);

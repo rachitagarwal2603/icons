@@ -51,35 +51,37 @@ public class UpdateProfileDetails extends AppCompatActivity{
         Bundle b= this.getIntent().getExtras();
         if (b!= null)
             dataToPopulate = (MyProfileData) b.getSerializable("MyProfileData");
-        Toast.makeText(this, ""+ dataToPopulate.getProfileName(), Toast.LENGTH_SHORT).show();
 
         mProgressView= findViewById(R.id.progress_update);
         updateDetailLayout = (LinearLayout) findViewById(R.id.updateDetailsLayout);
 
         etName = (EditText) findViewById(R.id.etName_Details);
-        etName.setText(dataToPopulate.getProfileName());
         etStatus = (EditText) findViewById(R.id.etStatus);
-        etStatus.setText(dataToPopulate.getProfileStatus());
         etEmail = (EditText) findViewById(R.id.etEmail);
-        etEmail.setText(dataToPopulate.getProfileEmail());
         etContact = (EditText) findViewById(R.id.etContact_Details);
-        etContact.setText(dataToPopulate.getProfileContact());
         etCouncil = (EditText) findViewById(R.id.etCouncils_Details);
-        etCouncil.setText(dataToPopulate.getProfileCouncils());
         etSkills = (EditText) findViewById(R.id.etSkills_Details);
-        etSkills.setText(dataToPopulate.getProfileSkills());
         etHobbies = (EditText) findViewById(R.id.etHobbies_Details);
-        etHobbies.setText(dataToPopulate.getProfileHobbies());
         etBloodGroup = (EditText) findViewById(R.id.etBloodGroup_Details);
-        etBloodGroup.setText(dataToPopulate.getProfileBlood());
         etAddress = (EditText) findViewById(R.id.etAddress_Details);
-        etAddress.setText(dataToPopulate.getProfileAddress());
         etFacebookLink = (EditText) findViewById(R.id.etFacebookLink_Details);
-        etFacebookLink.setText(dataToPopulate.getProfileFb());
         etGitLink = (EditText) findViewById(R.id.etGitLink_Details);
-        etGitLink.setText(dataToPopulate.getProfileGithub());
         etLinkedInLink = (EditText) findViewById(R.id.etLinkedInLink_Details);
-        etLinkedInLink.setText(dataToPopulate.getProfileLinkedin());
+
+        if(b!=null) {
+            etName.setText(dataToPopulate.getProfileName());
+            etStatus.setText(dataToPopulate.getProfileStatus());
+            etEmail.setText(dataToPopulate.getProfileEmail());
+            etContact.setText(dataToPopulate.getProfileContact());
+            etCouncil.setText(dataToPopulate.getProfileCouncils());
+            etSkills.setText(dataToPopulate.getProfileSkills());
+            etHobbies.setText(dataToPopulate.getProfileHobbies());
+            etBloodGroup.setText(dataToPopulate.getProfileBlood());
+            etAddress.setText(dataToPopulate.getProfileAddress());
+            etFacebookLink.setText(dataToPopulate.getProfileFb());
+            etGitLink.setText(dataToPopulate.getProfileGithub());
+            etLinkedInLink.setText(dataToPopulate.getProfileLinkedin());
+        }
 
         tvSubmit = (TextView) findViewById(R.id.tvSubmit_Details);
         tvSubmit.setOnClickListener(new View.OnClickListener() {

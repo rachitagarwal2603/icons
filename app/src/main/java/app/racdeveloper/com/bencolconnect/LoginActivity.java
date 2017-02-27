@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -247,7 +246,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showDialogOnExit(){
-        final AlertDialog.Builder builder= new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.myDialog));
+        final AlertDialog.Builder builder= new AlertDialog.Builder(this);
         builder.setTitle("Do you want to exit?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {

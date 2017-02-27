@@ -120,7 +120,8 @@ public class PostMsgActivity extends AppCompatActivity {
                         if (isImageSet) {
                             String imageString = getStringImage(bitmap);
                             postMessage(data, imageString);
-                        } else if (!data.equals("") || !mDataUrl.equals("")) {
+                        }
+                        else if (!data.equals("") || !mDataUrl.equals("")) {
                             postMessage(data, null);
                         }
                         else{
