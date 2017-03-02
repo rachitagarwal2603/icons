@@ -34,7 +34,7 @@
             android:layout_width="324dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="50dp">
             <EditText
                 android:layout_width="304dp"
                 android:layout_height="wrap_content"
@@ -160,35 +160,7 @@
                 android:textColor="#fff"/>
         </android.support.design.widget.TextInputLayout>
 
-        <RelativeLayout
-            android:layout_width="324dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:id="@+id/imageLayout">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:src="@android:drawable/ic_menu_camera"
-                android:id="@+id/imageUpload"/>
-            <TextView
-                android:layout_width="174dp"
-                android:layout_height="30dp"
-                android:textSize="18dp"
-                android:text="\tUpload ID card\t"
-                android:id="@+id/imageText"
-                android:layout_alignTop="@+id/imageUpload"
-                android:layout_toRightOf="@+id/imageUpload"
-                android:layout_toEndOf="@+id/imageUpload" />
-            <ImageView
-                android:layout_width="30dip"
-                android:layout_height="35dip"
-                android:layout_marginTop="5dp"
-                android:id="@+id/imagePreview"
-                android:layout_toRightOf="@+id/imageText"/>
 
-        </RelativeLayout>
 
         <Button
             style="?android:textAppearanceSmall"

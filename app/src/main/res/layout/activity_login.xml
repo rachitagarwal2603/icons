@@ -8,7 +8,7 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:paddingTop="45dp"
-    tools:context="app.racdeveloper.com.bencolconnect.LoginActivity"
+    tools:context="app.racdeveloper.com.ICoNS.LoginActivity"
     android:background="@drawable/bg1">
 
     <!-- Login progress -->

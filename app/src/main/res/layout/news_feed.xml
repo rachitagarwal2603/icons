@@ -8,7 +8,7 @@
     android:id="@+id/container"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="app.racdeveloper.com.bencolconnect.ProfileActivity"
+    tools:context="app.racdeveloper.com.ICoNS.ProfileActivity"
     tools:showIn="@layout/activity_profile_bar_main">
 
     <ProgressBar

@@ -30,14 +30,13 @@
             android:icon="@drawable/menu_notifications"
             android:title=" Notification List"
             />
-
     </group>
     <item android:title="Extras">
         <menu>
             <item
                 android:id="@+id/nav_aboutUs"
                 android:icon="@drawable/menu_developers"
-                android:title=" About us"/>
+                android:title=" Developers"/>
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/menu_logout"

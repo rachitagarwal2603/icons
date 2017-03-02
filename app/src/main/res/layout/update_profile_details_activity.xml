@@ -196,7 +196,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="40dp"
                 android:textStyle="bold"
                 android:background="#f3b96f"
                 android:textColor="#2b2a2a"
